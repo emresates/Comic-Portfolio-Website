@@ -57,6 +57,11 @@ export type Content = {
   githubBtn: string;
   caseStudyBtn: string;
   backBtn: string;
+  stripTitle: string;
+  issueLabel: string;
+  prevIssue: string;
+  nextIssue: string;
+  sequelCta: string;
   skillsTitle: string;
   skills: Skill[];
   timelineTitle: string;
@@ -124,6 +129,11 @@ const tr: Content = {
   githubBtn: "GITHUB",
   caseStudyBtn: "HİKAYEYİ OKU",
   backBtn: "← ANA SAYFA",
+  stripTitle: "HİKAYE ŞERİDİ",
+  issueLabel: "SAYI",
+  prevIssue: "← ÖNCEKİ SAYI",
+  nextIssue: "SONRAKİ SAYI →",
+  sequelCta: "Devamını yaşamak ister misin?",
   projects: [
     {
       title: "HIZLI MARKET",
@@ -284,6 +294,11 @@ const en: Content = {
   githubBtn: "GITHUB",
   caseStudyBtn: "READ THE STORY",
   backBtn: "← HOME",
+  stripTitle: "STORY STRIP",
+  issueLabel: "ISSUE",
+  prevIssue: "← PREV ISSUE",
+  nextIssue: "NEXT ISSUE →",
+  sequelCta: "Want to live the sequel?",
   projects: [
     {
       title: "SPEEDY MARKET",
