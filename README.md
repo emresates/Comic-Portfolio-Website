@@ -1,4 +1,4 @@
-# EMRE — Comic Portfolio (Next.js)
+# Comic Portfolio (Next.js)
 
 Çizgi roman temalı frontend developer portföyü. Orijinal DC HTML sürümünün Next.js App Router yeniden yazımı.
 
