@@ -1,7 +1,8 @@
 export function CharacterAvatar() {
   return (
-    <div className="anim-float-bob" style={{ position: "relative" }}>
+    <div className="anim-float-bob avatar-wrap" style={{ position: "relative" }}>
       <div
+        className="avatar-circle"
         style={{
           width: 260,
           height: 260,
@@ -314,7 +315,7 @@ export function CharacterAvatar() {
         </div>
       </div>
       <div
-        className="font-luckiest anim-wiggle"
+        className="font-luckiest anim-wiggle avatar-badge avatar-badge--pow"
         style={{
           position: "absolute",
           top: -18,
@@ -332,7 +333,7 @@ export function CharacterAvatar() {
         POW!
       </div>
       <div
-        className="font-luckiest anim-wiggle-delay"
+        className="font-luckiest anim-wiggle-delay avatar-badge avatar-badge--code"
         style={{
           position: "absolute",
           bottom: -6,

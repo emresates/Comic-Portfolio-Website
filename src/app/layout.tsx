@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bangers, Comic_Neue, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
 
@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   title: "EMRE — Frontend Developer",
   description:
     "Piksel piksel arayüz döven, kod bloklarından süper güçler çıkaran bir frontend developer portföyü.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

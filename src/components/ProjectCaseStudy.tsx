@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ComicStrip } from "./ComicStrip";
+import { SiteNav } from "./SiteNav";
 import { getContent, type Lang, type Project } from "@/lib/content";
 import { getCaseStudy, PROJECT_SLUGS } from "@/lib/projects";
 import { usePersistedLang } from "@/hooks/usePersistedLang";
@@ -47,60 +48,15 @@ export function ProjectCaseStudy({
         overflowX: "hidden",
       }}
     >
-      <nav
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 12,
-          padding: "12px 20px",
-          background: "#FFD23F",
-          borderBottom: "4px solid #1A1A2E",
-          boxShadow: "0 4px 0 rgba(26,26,46,0.25)",
-          flexWrap: "wrap",
-        }}
-      >
-        <Link
-          href={`/?lang=${lang}`}
-          className="font-bangers"
-          style={{
-            fontSize: 28,
-            letterSpacing: 2,
-            background: "#D62828",
-            color: "#fff",
-            padding: "4px 14px",
-            border: "3px solid #1A1A2E",
-            borderRadius: 8,
-            transform: "rotate(-2deg)",
-            boxShadow: "3px 3px 0 #1A1A2E",
-            textDecoration: "none",
-          }}
-        >
-          EMRE!
-        </Link>
-        <div
-          style={{
-            display: "flex",
-            gap: 8,
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <Link href={`/?lang=${lang}`} className="nav-link">
-            {content.backBtn}
-          </Link>
-          <button
-            type="button"
-            className="lang-btn"
-            onClick={() => setLang((prev) => (prev === "tr" ? "en" : "tr"))}
-          >
-            {content.langButton}
-          </button>
-        </div>
-      </nav>
+      <SiteNav
+        brandHref={`/?lang=${lang}`}
+        langButton={content.langButton}
+        onToggleLang={() => setLang((prev) => (prev === "tr" ? "en" : "tr"))}
+        items={[
+          { label: content.backBtn, href: `/?lang=${lang}` },
+          { label: content.blogNav, href: `/blog?lang=${lang}` },
+        ]}
+      />
 
       <header
         className="comic-cover"

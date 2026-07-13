@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { CharacterAvatar } from "./CharacterAvatar";
 import { ProjectModal } from "./ProjectModal";
 import { BugSquasher, HIGH_SCORE_KEY } from "./BugSquasher";
+import { SiteNav } from "./SiteNav";
 import {
   MODAL_BANGS,
   getContent,
@@ -174,98 +174,30 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
       )}
 
       <div className={loaderPhase === "done" ? undefined : "anim-page-in"}>
-        <nav
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 50,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-            padding: "12px 20px",
-            background: "#FFD23F",
-            borderBottom: "4px solid #1A1A2E",
-            boxShadow: "0 4px 0 rgba(26,26,46,0.25)",
-            flexWrap: "wrap",
+        <SiteNav
+          brandHref={`/?lang=${lang}`}
+          langButton={content.langButton}
+          onToggleLang={toggleLang}
+          sound={{
+            muted,
+            onToggle: toggleMute,
+            onLabel: content.soundOnLabel,
+            offLabel: content.soundOffLabel,
           }}
-        >
-          <div
-            className="font-bangers"
-            style={{
-              fontSize: 28,
-              letterSpacing: 2,
-              background: "#D62828",
-              color: "#fff",
-              padding: "4px 14px",
-              border: "3px solid #1A1A2E",
-              borderRadius: 8,
-              transform: "rotate(-2deg)",
-              boxShadow: "3px 3px 0 #1A1A2E",
-            }}
-          >
-            EMRE!
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 8,
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            {content.navItems.map((nv) => {
-              const isRoute = nv.href.startsWith("/");
-              const sectionId = nv.href.replace("#", "");
-              const isActive = !isRoute && activeSection === sectionId;
-              const className = `nav-link${isActive ? " is-active" : ""}`;
-              if (isRoute) {
-                return (
-                  <Link
-                    key={nv.href}
-                    href={`${nv.href}?lang=${lang}`}
-                    className={className}
-                  >
-                    {nv.label}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={nv.href}
-                  href={nv.href}
-                  className={className}
-                  aria-current={isActive ? "location" : undefined}
-                >
-                  {nv.label}
-                </a>
-              );
-            })}
-            <button
-              type="button"
-              className={`sfx-btn${muted ? " is-muted" : ""}`}
-              onClick={toggleMute}
-              aria-pressed={muted}
-              title={muted ? content.soundOffLabel : content.soundOnLabel}
-            >
-              {muted ? "🔇" : "🔊"} {muted ? content.soundOffLabel : content.soundOnLabel}
-            </button>
-            <button type="button" onClick={toggleLang} className="lang-btn">
-              {content.langButton}
-            </button>
-          </div>
-        </nav>
+          items={content.navItems.map((nv) => {
+            const isRoute = nv.href.startsWith("/");
+            const sectionId = nv.href.replace("#", "");
+            return {
+              label: nv.label,
+              href: isRoute ? `${nv.href}?lang=${lang}` : nv.href,
+              isActive: !isRoute && activeSection === sectionId,
+            };
+          })}
+        />
 
         <header
           id="hero"
-          style={{
-            position: "relative",
-            padding: "70px 24px 90px",
-            background:
-              "radial-gradient(circle, #1A1A2E 1.6px, transparent 1.6px) 0 0 / 18px 18px, #4CB5AE",
-            borderBottom: "6px solid #1A1A2E",
-            overflow: "hidden",
-          }}
+          className="hero-section"
         >
           <div
             style={{
@@ -697,6 +629,7 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
               {content.timelineTitle}
             </h2>
             <div
+              className="timeline-track"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -709,9 +642,11 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
               {content.timeline.map((tl) => (
                 <div
                   key={tl.title}
+                  className="timeline-item"
                   style={{ position: "relative", paddingBottom: 36 }}
                 >
                   <div
+                    className="timeline-dot"
                     style={{
                       position: "absolute",
                       left: -52,
