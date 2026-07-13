@@ -73,6 +73,19 @@ export type Content = {
   loaderText: string;
   soundOnLabel: string;
   soundOffLabel: string;
+  gameTitle: string;
+  gameSub: string;
+  gameStart: string;
+  gameAgain: string;
+  gameScore: string;
+  gameHigh: string;
+  gameTime: string;
+  gameResult: string;
+  blogTitle: string;
+  blogSub: string;
+  blogBang: string;
+  blogBack: string;
+  blogNav: string;
 };
 
 const tr: Content = {
@@ -87,6 +100,8 @@ const tr: Content = {
     { label: "PROJELER", href: "#projeler" },
     { label: "YETENEKLER", href: "#yetenekler" },
     { label: "DENEYİM", href: "#deneyim" },
+    { label: "OYUN", href: "#oyun" },
+    { label: "BLOG", href: "/blog" },
     { label: "İLETİŞİM", href: "#iletisim" },
   ],
   marqueeWords: [
@@ -238,6 +253,19 @@ const tr: Content = {
   loaderText: "YÜKLENİYOR...",
   soundOnLabel: "SES AÇIK",
   soundOffLabel: "SESSİZ",
+  gameTitle: "BUG SQUASHER!",
+  gameSub: "10 saniyede mümkün olduğunca çok bug ez! Yüksek skor kaydedilir. 💥",
+  gameStart: "BAŞLA →",
+  gameAgain: "TEKRAR!",
+  gameScore: "SKOR",
+  gameHigh: "REKOR",
+  gameTime: "SÜRE",
+  gameResult: "OYUN BİTTİ!",
+  blogTitle: "BLOG SAYILARI",
+  blogSub: "Her yazı bir kapak, her kapak bir macera.",
+  blogBang: "NEW ISSUE!",
+  blogBack: "← TÜM SAYILAR",
+  blogNav: "BLOG",
 };
 
 const en: Content = {
@@ -252,6 +280,8 @@ const en: Content = {
     { label: "PROJECTS", href: "#projeler" },
     { label: "SKILLS", href: "#yetenekler" },
     { label: "EXPERIENCE", href: "#deneyim" },
+    { label: "GAME", href: "#oyun" },
+    { label: "BLOG", href: "/blog" },
     { label: "CONTACT", href: "#iletisim" },
   ],
   marqueeWords: [
@@ -403,6 +433,19 @@ const en: Content = {
   loaderText: "LOADING...",
   soundOnLabel: "SFX ON",
   soundOffLabel: "MUTED",
+  gameTitle: "BUG SQUASHER!",
+  gameSub: "Squash as many bugs as you can in 10 seconds! High score is saved. 💥",
+  gameStart: "START →",
+  gameAgain: "AGAIN!",
+  gameScore: "SCORE",
+  gameHigh: "BEST",
+  gameTime: "TIME",
+  gameResult: "GAME OVER!",
+  blogTitle: "BLOG ISSUES",
+  blogSub: "Every post is a cover. Every cover is an adventure.",
+  blogBang: "NEW ISSUE!",
+  blogBack: "← ALL ISSUES",
+  blogNav: "BLOG",
 };
 
 export const contentByLang: Record<Lang, Content> = { tr, en };

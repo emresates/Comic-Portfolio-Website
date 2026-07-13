@@ -7,6 +7,7 @@ export const PORTFOLIO_SECTION_IDS = [
   "projeler",
   "yetenekler",
   "deneyim",
+  "oyun",
   "iletisim",
 ] as const;
 

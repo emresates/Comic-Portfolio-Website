@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { CharacterAvatar } from "./CharacterAvatar";
 import { ProjectModal } from "./ProjectModal";
+import { BugSquasher, HIGH_SCORE_KEY } from "./BugSquasher";
 import {
   MODAL_BANGS,
   getContent,
@@ -29,9 +31,25 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const [modalIndex, setModalIndex] = useState(-1);
   const [loaderPhase, setLoaderPhase] = useState<LoaderPhase>("in");
   const [wipePhase, setWipePhase] = useState<WipePhase>("idle");
+  const [highScore, setHighScore] = useState(0);
   const activeSection = useScrollSpy(PORTFOLIO_SECTION_IDS);
 
   const content = getContent(lang);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(HIGH_SCORE_KEY);
+      setHighScore(raw ? Number(raw) || 0 : 0);
+    } catch {
+      setHighScore(0);
+    }
+    const onHigh = (e: Event) => {
+      const detail = (e as CustomEvent<number>).detail;
+      if (typeof detail === "number") setHighScore(detail);
+    };
+    window.addEventListener("bug-highscore", onHigh);
+    return () => window.removeEventListener("bug-highscore", onHigh);
+  }, []);
 
   useEffect(() => {
     const outTimer = window.setTimeout(() => setLoaderPhase("out"), 1100);
@@ -197,13 +215,26 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
             }}
           >
             {content.navItems.map((nv) => {
+              const isRoute = nv.href.startsWith("/");
               const sectionId = nv.href.replace("#", "");
-              const isActive = activeSection === sectionId;
+              const isActive = !isRoute && activeSection === sectionId;
+              const className = `nav-link${isActive ? " is-active" : ""}`;
+              if (isRoute) {
+                return (
+                  <Link
+                    key={nv.href}
+                    href={`${nv.href}?lang=${lang}`}
+                    className={className}
+                  >
+                    {nv.label}
+                  </Link>
+                );
+              }
               return (
                 <a
                   key={nv.href}
                   href={nv.href}
-                  className={`nav-link${isActive ? " is-active" : ""}`}
+                  className={className}
                   aria-current={isActive ? "location" : undefined}
                 >
                   {nv.label}
@@ -738,6 +769,17 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           </div>
         </section>
 
+        <BugSquasher
+          title={content.gameTitle}
+          sub={content.gameSub}
+          startLabel={content.gameStart}
+          againLabel={content.gameAgain}
+          scoreLabel={content.gameScore}
+          highLabel={content.gameHigh}
+          timeLabel={content.gameTime}
+          resultLabel={content.gameResult}
+        />
+
         <section
           id="iletisim"
           style={{
@@ -825,6 +867,11 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           }}
         >
           {content.footerText}
+          {highScore > 0 && (
+            <span style={{ display: "block", marginTop: 8, color: "#fff" }}>
+              🐛 {content.gameHigh}: {highScore}
+            </span>
+          )}
         </footer>
       </div>
     </div>
