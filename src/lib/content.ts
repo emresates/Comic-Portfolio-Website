@@ -66,6 +66,8 @@ export type Content = {
   contactText: string;
   footerText: string;
   loaderText: string;
+  soundOnLabel: string;
+  soundOffLabel: string;
 };
 
 const tr: Content = {
@@ -224,6 +226,8 @@ const tr: Content = {
     "Bir proje mi var? Süper kahraman takviyesi mi lazım? Sinyal gönder, hemen geliyorum!",
   footerText: "© 2026 EMRE — BU SAYFA %100 EL ÇİZİMİ KOD İLE YAPILMIŞTIR ✦",
   loaderText: "YÜKLENİYOR...",
+  soundOnLabel: "SES AÇIK",
+  soundOffLabel: "SESSİZ",
 };
 
 const en: Content = {
@@ -382,6 +386,8 @@ const en: Content = {
     "Got a project? Need superhero reinforcements? Send the signal, I'll be right there!",
   footerText: "© 2026 EMRE — THIS PAGE IS MADE OF 100% HAND-DRAWN CODE ✦",
   loaderText: "LOADING...",
+  soundOnLabel: "SFX ON",
+  soundOffLabel: "MUTED",
 };
 
 export const contentByLang: Record<Lang, Content> = { tr, en };

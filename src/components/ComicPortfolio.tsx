@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { CharacterAvatar } from "./CharacterAvatar";
+import { ProjectModal } from "./ProjectModal";
 import {
   MODAL_BANGS,
   getContent,
@@ -14,6 +14,7 @@ import {
   PORTFOLIO_SECTION_IDS,
   useScrollSpy,
 } from "@/hooks/useScrollSpy";
+import { useSfx } from "@/hooks/useSfx";
 
 type LoaderPhase = "in" | "out" | "done";
 type WipePhase = "idle" | "cover" | "reveal";
@@ -24,6 +25,7 @@ type ComicPortfolioProps = {
 
 export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const { lang, setLang } = usePersistedLang(defaultLang);
+  const { muted, toggleMute, play } = useSfx();
   const [modalIndex, setModalIndex] = useState(-1);
   const [loaderPhase, setLoaderPhase] = useState<LoaderPhase>("in");
   const [wipePhase, setWipePhase] = useState<WipePhase>("idle");
@@ -40,27 +42,20 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
     };
   }, []);
 
-  useEffect(() => {
-    if (modalIndex < 0) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setModalIndex(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [modalIndex]);
-
   const toggleLang = () => {
     if (wipePhase !== "idle") return;
+    play("whoosh");
     setWipePhase("cover");
     window.setTimeout(() => {
       setLang((prev) => (prev === "tr" ? "en" : "tr"));
       setWipePhase("reveal");
     }, 480);
     window.setTimeout(() => setWipePhase("idle"), 950);
+  };
+
+  const openProject = (index: number) => {
+    play("pow");
+    setModalIndex(index);
   };
 
   const modalProject: Project | null =
@@ -215,6 +210,15 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
                 </a>
               );
             })}
+            <button
+              type="button"
+              className={`sfx-btn${muted ? " is-muted" : ""}`}
+              onClick={toggleMute}
+              aria-pressed={muted}
+              title={muted ? content.soundOffLabel : content.soundOnLabel}
+            >
+              {muted ? "🔇" : "🔊"} {muted ? content.soundOffLabel : content.soundOnLabel}
+            </button>
             <button type="button" onClick={toggleLang} className="lang-btn">
               {content.langButton}
             </button>
@@ -462,8 +466,13 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
                   key={pr.title}
                   type="button"
                   className="project-card"
-                  onClick={() => setModalIndex(i)}
+                  onClick={() => openProject(i)}
+                  onMouseEnter={() => play("thwip")}
+                  onFocus={() => play("thwip")}
                 >
+                  <span className="card-bang">
+                    {MODAL_BANGS[i % MODAL_BANGS.length]}
+                  </span>
                   <div
                     style={{
                       height: 150,
@@ -550,152 +559,18 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
         </section>
 
         {modalProject && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={modalProject.title}
-            onClick={() => setModalIndex(-1)}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 100,
-              background: "rgba(26,26,46,0.75)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 24,
+          <ProjectModal
+            project={modalProject}
+            bang={modalBang}
+            lang={lang}
+            labels={{
+              demoBtn: content.demoBtn,
+              githubBtn: content.githubBtn,
+              caseStudyBtn: content.caseStudyBtn,
             }}
-          >
-            <div
-              className="anim-pow-pop"
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                background: "#fff",
-                border: "5px solid #1A1A2E",
-                borderRadius: 18,
-                boxShadow: "12px 12px 0 #1A1A2E",
-                maxWidth: 560,
-                width: "100%",
-                padding: 0,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  height: 130,
-                  background: modalProject.bg,
-                  borderBottom: "4px solid #1A1A2E",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  className="font-bangers"
-                  style={{
-                    fontSize: 64,
-                    color: "#fff",
-                    WebkitTextStroke: "2px #1A1A2E",
-                  }}
-                >
-                  {modalProject.emoji}
-                </span>
-              </div>
-              <button
-                type="button"
-                className="modal-close"
-                onClick={() => setModalIndex(-1)}
-                aria-label="Close"
-              >
-                ✕
-              </button>
-              <div style={{ padding: "26px 30px 30px" }}>
-                <div
-                  className="font-luckiest"
-                  style={{
-                    fontSize: 20,
-                    color: "#D62828",
-                    transform: "rotate(-2deg)",
-                    display: "inline-block",
-                    marginBottom: 6,
-                  }}
-                >
-                  {modalBang}
-                </div>
-                <h3
-                  className="font-bangers"
-                  style={{
-                    fontSize: 34,
-                    letterSpacing: 2,
-                    margin: "0 0 12px",
-                    color: "#1A1A2E",
-                  }}
-                >
-                  {modalProject.title}
-                </h3>
-                <p
-                  style={{
-                    fontWeight: 700,
-                    fontSize: 16,
-                    lineHeight: 1.55,
-                    margin: "0 0 16px",
-                  }}
-                >
-                  {modalProject.detail}
-                </p>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {modalProject.tags.map((tg) => (
-                    <span
-                      key={tg}
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 700,
-                        background: "#FFD23F",
-                        border: "2px solid #1A1A2E",
-                        borderRadius: 20,
-                        padding: "3px 12px",
-                      }}
-                    >
-                      {tg}
-                    </span>
-                  ))}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                    flexWrap: "wrap",
-                    marginTop: 20,
-                  }}
-                >
-                  <a
-                    href={modalProject.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link-btn project-link-demo"
-                  >
-                    {content.demoBtn}
-                  </a>
-                  <a
-                    href={modalProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link-btn project-link-github"
-                  >
-                    {content.githubBtn}
-                  </a>
-                  <Link
-                    href={`/projects/${modalProject.slug}?lang=${lang}`}
-                    className="project-link-btn project-link-story"
-                    onClick={() => setModalIndex(-1)}
-                  >
-                    {content.caseStudyBtn} →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+            onClose={() => setModalIndex(-1)}
+            onCloseSound={() => play("zap")}
+          />
         )}
 
         <section
