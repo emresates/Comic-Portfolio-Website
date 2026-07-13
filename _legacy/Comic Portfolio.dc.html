@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Luckiest+Guy&family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #F9E9C8; }
+  a { color: #D62828; }
+  a:hover { color: #A31621; }
+  * { box-sizing: border-box; }
+  @keyframes pow-pop { 0% { transform: scale(0) rotate(-20deg); opacity: 0; } 60% { transform: scale(1.25) rotate(6deg); opacity: 1; } 100% { transform: scale(1) rotate(-3deg); opacity: 1; } }
+  @keyframes float-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  @keyframes wiggle { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+  @keyframes zoom-lines { from { background-position: 0 0; } to { background-position: 120px 0; } }
+  @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  html { scroll-behavior: smooth; }
+  @keyframes burst-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes loader-pop { 0% { transform: scale(0) rotate(-30deg); } 55% { transform: scale(1.3) rotate(8deg); } 100% { transform: scale(1) rotate(-4deg); } }
+  @keyframes loader-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+  @keyframes page-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes lang-flip { 0% { transform: perspective(1200px) rotateX(0deg); opacity: 1; } 40% { transform: perspective(1200px) rotateX(12deg) scale(0.96); opacity: 0.3; filter: blur(2px); } 100% { transform: perspective(1200px) rotateX(0deg) scale(1); opacity: 1; filter: blur(0); } }
+  @keyframes wipe-in { from { transform: translateX(-105%) skewX(-6deg); } to { transform: translateX(0) skewX(0deg); } }
+  @keyframes wipe-out { from { transform: translateX(0) skewX(0deg); } to { transform: translateX(105%) skewX(6deg); } }
+  @keyframes bang-in { 0% { transform: scale(0) rotate(-25deg); opacity: 0; } 60% { transform: scale(1.3) rotate(6deg); opacity: 1; } 100% { transform: scale(1) rotate(-4deg); opacity: 1; } }
+  @keyframes brow-raise { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+</style>
+</helmet>
+
+<div style="font-family: 'Comic Neue', cursive; background: #F9E9C8; color: #1A1A2E; min-height: 100vh; overflow-x: hidden;">
+
+  <!-- LANG WIPE OVERLAY -->
+  <sc-if value="{{ langWipe }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 150; background: radial-gradient(circle, rgba(26,26,46,0.25) 2.4px, transparent 2.4px) 0 0 / 20px 20px, #D62828; display: flex; align-items: center; justify-content: center; animation: {{ langWipeAnim }}; border-right: 8px solid #1A1A2E; border-left: 8px solid #1A1A2E;">
+      <div style="font-family: 'Bangers', cursive; font-size: clamp(60px, 12vw, 120px); letter-spacing: 4px; color: #FFD23F; -webkit-text-stroke: 4px #1A1A2E; text-shadow: 8px 8px 0 #1A1A2E; animation: bang-in 0.4s cubic-bezier(0.34,1.56,0.64,1);">{{ langWipeText }}</div>
+    </div>
+  </sc-if>
+
+  <!-- PAGE LOADER -->
+  <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
+    <div style="position: fixed; inset: 0; z-index: 200; background: radial-gradient(circle, rgba(26,26,46,0.25) 2.4px, transparent 2.4px) 0 0 / 20px 20px, #FFD23F; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 18px; animation: {{ loaderAnim }};">
+      <div style="font-family: 'Bangers', cursive; font-size: clamp(64px, 14vw, 140px); letter-spacing: 4px; color: #D62828; -webkit-text-stroke: 4px #1A1A2E; text-shadow: 8px 8px 0 #1A1A2E; transform: rotate(-4deg); animation: loader-pop 0.6s cubic-bezier(0.34,1.56,0.64,1);">POW!</div>
+      <div style="font-family: 'Luckiest Guy', cursive; font-size: 20px; color: #1A1A2E; background: #fff; border: 4px solid #1A1A2E; border-radius: 12px; padding: 8px 20px; box-shadow: 4px 4px 0 #1A1A2E; transform: rotate(2deg);">{{ loaderText }}</div>
+    </div>
+  </sc-if>
+
+  <div style="animation: {{ pageAnim }};">
+
+  <!-- NAV -->
+  <nav data-screen-label="Nav" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px; background: #FFD23F; border-bottom: 4px solid #1A1A2E; box-shadow: 0 4px 0 rgba(26,26,46,0.25); flex-wrap: wrap;">
+    <div style="font-family: 'Bangers', cursive; font-size: 28px; letter-spacing: 2px; background: #D62828; color: #fff; padding: 4px 14px; border: 3px solid #1A1A2E; border-radius: 8px; transform: rotate(-2deg); box-shadow: 3px 3px 0 #1A1A2E;">EMRE!</div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="5">
+        <a href="{{ nv.href }}" style="font-family: 'Bangers', cursive; font-size: 18px; letter-spacing: 1px; color: #1A1A2E; text-decoration: none; padding: 6px 12px; border: 3px solid transparent; border-radius: 8px;" style-hover="border-color: #1A1A2E; background: #fff; box-shadow: 2px 2px 0 #1A1A2E; color: #D62828;">{{ nv.label }}</a>
+      </sc-for>
+      <button onClick="{{ toggleLang }}" style="font-family: 'Bangers', cursive; font-size: 18px; letter-spacing: 1px; cursor: pointer; background: #1A1A2E; color: #FFD23F; border: 3px solid #1A1A2E; border-radius: 8px; padding: 6px 14px; box-shadow: 3px 3px 0 rgba(26,26,46,0.4);" style-hover="background: #D62828; color: #fff; transform: translate(-1px,-1px); box-shadow: 4px 4px 0 rgba(26,26,46,0.4);">{{ langButton }}</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" data-screen-label="Hero" style="position: relative; padding: 70px 24px 90px; background: radial-gradient(circle, #1A1A2E 1.6px, transparent 1.6px) 0 0 / 18px 18px, #4CB5AE; border-bottom: 6px solid #1A1A2E; overflow: hidden;">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center;">
+      <!-- Avatar panel -->
+      <div style="animation: float-bob 4s ease-in-out infinite; position: relative;">
+        <div style="width: 260px; height: 260px; background: #FFD23F; border: 5px solid #1A1A2E; border-radius: 50%; box-shadow: 8px 8px 0 #1A1A2E; display: flex; align-items: flex-end; justify-content: center; position: relative; overflow: hidden;">
+          <!-- rotating sunburst -->
+          <div style="position: absolute; inset: -60px; background: repeating-conic-gradient(#FFD23F 0deg 12deg, #FFB800 12deg 24deg); animation: burst-spin 24s linear infinite;"></div>
+          <!-- halftone overlay -->
+          <div style="position: absolute; inset: 0; background: radial-gradient(circle, rgba(214,40,40,0.22) 1.8px, transparent 1.8px) 0 0 / 14px 14px;"></div>
+          <!-- character -->
+          <div style="position: relative; width: 190px; height: 230px;">
+            <!-- torso -->
+            <div style="position: absolute; bottom: -18px; left: 25px; width: 140px; height: 78px; background: #D62828; border: 4px solid #1A1A2E; border-radius: 40px 40px 0 0;"></div>
+            <!-- shirt logo -->
+            <div style="position: absolute; bottom: 8px; left: 76px; width: 38px; height: 38px; background: #FFD23F; border: 3px solid #1A1A2E; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bangers', cursive; font-size: 24px; color: #1A1A2E;">E</div>
+            <!-- collar -->
+            <div style="position: absolute; bottom: 52px; left: 66px; width: 58px; height: 16px; background: #fff; border: 3px solid #1A1A2E; border-radius: 8px;"></div>
+            <!-- neck -->
+            <div style="position: absolute; bottom: 62px; left: 78px; width: 34px; height: 24px; background: #FFC49B; border: 3px solid #1A1A2E; border-top: none; border-bottom: none;"></div>
+            <!-- head -->
+            <div style="position: absolute; top: 26px; left: 42px; width: 106px; height: 118px; background: #FFC49B; border: 4px solid #1A1A2E; border-radius: 48px 48px 42px 42px;"></div>
+            <!-- ears -->
+            <div style="position: absolute; top: 78px; left: 34px; width: 16px; height: 24px; background: #FFC49B; border: 3px solid #1A1A2E; border-radius: 50%;"></div>
+            <div style="position: absolute; top: 78px; left: 140px; width: 16px; height: 24px; background: #FFC49B; border: 3px solid #1A1A2E; border-radius: 50%;"></div>
+            <!-- hair: swoosh -->
+            <div style="position: absolute; top: 8px; left: 36px; width: 118px; height: 52px; background: #1A1A2E; border-radius: 60px 70px 10px 30px; transform: rotate(-4deg);"></div>
+            <div style="position: absolute; top: 24px; left: 30px; width: 34px; height: 46px; background: #1A1A2E; border-radius: 20px 0 10px 24px;"></div>
+            <div style="position: absolute; top: 4px; left: 96px; width: 56px; height: 34px; background: #1A1A2E; border-radius: 10px 40px 40px 6px; transform: rotate(8deg);"></div>
+            <!-- hair shine -->
+            <div style="position: absolute; top: 16px; left: 62px; width: 30px; height: 8px; background: #4CB5AE; border-radius: 8px; transform: rotate(-8deg);"></div>
+            <!-- eyebrows -->
+            <div style="position: absolute; top: 64px; left: 62px; width: 24px; height: 6px; background: #1A1A2E; border-radius: 4px; transform: rotate(-6deg); animation: brow-raise 3.4s ease-in-out infinite;"></div>
+            <div style="position: absolute; top: 62px; left: 104px; width: 24px; height: 6px; background: #1A1A2E; border-radius: 4px; transform: rotate(10deg); animation: brow-raise 3.4s ease-in-out infinite 0.15s;"></div>
+            <!-- eyes with highlight -->
+            <div style="position: absolute; top: 76px; left: 64px; width: 20px; height: 22px; background: #fff; border: 3px solid #1A1A2E; border-radius: 50%; animation: blink 4s infinite; overflow: hidden;">
+              <div style="position: absolute; top: 6px; left: 6px; width: 9px; height: 9px; background: #1A1A2E; border-radius: 50%;"></div>
+            </div>
+            <div style="position: absolute; top: 76px; left: 106px; width: 20px; height: 22px; background: #fff; border: 3px solid #1A1A2E; border-radius: 50%; animation: blink 4s infinite; overflow: hidden;">
+              <div style="position: absolute; top: 6px; left: 5px; width: 9px; height: 9px; background: #1A1A2E; border-radius: 50%;"></div>
+            </div>
+            <!-- nose -->
+            <div style="position: absolute; top: 96px; left: 92px; width: 10px; height: 14px; border-right: 3px solid #1A1A2E; border-bottom: 3px solid #1A1A2E; border-radius: 0 0 10px 0;"></div>
+            <!-- confident smirk -->
+            <div style="position: absolute; top: 114px; left: 76px; width: 42px; height: 18px; background: #fff; border: 3px solid #1A1A2E; border-radius: 4px 4px 22px 22px; transform: rotate(3deg); overflow: hidden;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: #D62828;"></div>
+            </div>
+            <!-- cheek blush -->
+            <div style="position: absolute; top: 102px; left: 56px; width: 14px; height: 8px; background: rgba(214,40,40,0.35); border-radius: 50%;"></div>
+            <div style="position: absolute; top: 100px; left: 124px; width: 14px; height: 8px; background: rgba(214,40,40,0.35); border-radius: 50%;"></div>
+          </div>
+        </div>
+        <div style="position: absolute; top: -18px; right: -30px; font-family: 'Luckiest Guy', cursive; font-size: 26px; color: #fff; background: #D62828; border: 4px solid #1A1A2E; padding: 8px 14px; border-radius: 12px; transform: rotate(8deg); box-shadow: 4px 4px 0 #1A1A2E; animation: wiggle 2.5s ease-in-out infinite;">POW!</div>
+        <div style="position: absolute; bottom: -6px; left: -34px; font-family: 'Luckiest Guy', cursive; font-size: 18px; color: #1A1A2E; background: #4CB5AE; border: 4px solid #1A1A2E; padding: 6px 12px; border-radius: 10px; transform: rotate(-8deg); box-shadow: 4px 4px 0 #1A1A2E; animation: wiggle 3.2s ease-in-out infinite 0.6s;">&lt;/kod&gt;</div>
+      </div>
+      <!-- Title block -->
+      <div style="max-width: 560px; text-align: center;">
+        <div style="display: inline-block; background: #fff; border: 4px solid #1A1A2E; border-radius: 16px; padding: 10px 22px; font-weight: 700; font-size: 18px; box-shadow: 5px 5px 0 #1A1A2E; position: relative; margin-bottom: 18px;">
+          {{ heroBubble }}
+          <div style="position: absolute; bottom: -16px; left: 40px; width: 0; height: 0; border-left: 14px solid transparent; border-right: 4px solid transparent; border-top: 16px solid #1A1A2E;"></div>
+        </div>
+        <h1 style="font-family: 'Bangers', cursive; font-size: clamp(52px, 9vw, 104px); line-height: 0.95; margin: 0; color: #FFD23F; -webkit-text-stroke: 3px #1A1A2E; text-shadow: 6px 6px 0 #D62828, 8px 8px 0 #1A1A2E; letter-spacing: 3px;">EMRE</h1>
+        <h2 style="font-family: 'Luckiest Guy', cursive; font-size: clamp(22px, 4vw, 36px); margin: 14px 0 0; color: #fff; background: #1A1A2E; display: inline-block; padding: 6px 20px; transform: rotate(-1.5deg); border-radius: 6px;">{{ heroRole }}</h2>
+        <p style="font-size: 18px; font-weight: 700; margin: 22px auto 28px; max-width: 440px;">{{ heroText }}</p>
+        <a href="#projeler" style="display: inline-block; font-family: 'Bangers', cursive; font-size: 24px; letter-spacing: 2px; text-decoration: none; background: #D62828; color: #fff; border: 4px solid #1A1A2E; border-radius: 12px; padding: 12px 30px; box-shadow: 6px 6px 0 #1A1A2E; transition: transform 0.1s;" style-hover="transform: translate(-2px,-2px); box-shadow: 8px 8px 0 #1A1A2E; background: #A31621; color: #fff;">{{ heroCta }} →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARQUEE STRIP -->
+  <div style="background: #1A1A2E; border-bottom: 6px solid #1A1A2E; overflow: hidden; padding: 10px 0;">
+    <div style="display: flex; gap: 40px; white-space: nowrap; animation: marquee 18s linear infinite; width: max-content;">
+      <sc-for list="{{ marqueeWords }}" as="w" hint-placeholder-count="8">
+        <span style="font-family: 'Bangers', cursive; font-size: 22px; letter-spacing: 3px; color: #FFD23F;">{{ w }} ✦</span>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="hakkimda" data-screen-label="Hakkımda" style="padding: 80px 24px; max-width: 1100px; margin: 0 auto;">
+    <h2 style="font-family: 'Bangers', cursive; font-size: clamp(40px, 6vw, 64px); letter-spacing: 3px; color: #D62828; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 4px 4px 0 #FFD23F; margin: 0 0 36px; transform: rotate(-1deg);">{{ aboutTitle }}</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+      <sc-for list="{{ aboutPanels }}" as="p" hint-placeholder-count="3">
+        <div style="background: {{ p.bg }}; border: 4px solid #1A1A2E; border-radius: 14px; padding: 26px 22px; box-shadow: 7px 7px 0 #1A1A2E; transform: rotate({{ p.rot }}deg); transition: transform 0.15s;" style-hover="transform: rotate(0deg) scale(1.03);">
+          <div style="font-family: 'Luckiest Guy', cursive; font-size: 40px; margin-bottom: 8px;">{{ p.icon }}</div>
+          <h3 style="font-family: 'Bangers', cursive; font-size: 26px; letter-spacing: 2px; margin: 0 0 10px; color: #1A1A2E;">{{ p.title }}</h3>
+          <p style="margin: 0; font-weight: 700; font-size: 16px; line-height: 1.5;">{{ p.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projeler" data-screen-label="Projeler" style="padding: 80px 24px; background: radial-gradient(circle, rgba(214,40,40,0.18) 2px, transparent 2px) 0 0 / 22px 22px, #FFD23F; border-top: 6px solid #1A1A2E; border-bottom: 6px solid #1A1A2E;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <h2 style="font-family: 'Bangers', cursive; font-size: clamp(40px, 6vw, 64px); letter-spacing: 3px; color: #fff; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 5px 5px 0 #D62828; margin: 0 0 12px; transform: rotate(-1deg);">{{ projectsTitle }}</h2>
+      <p style="font-weight: 700; font-size: 18px; margin: 0 0 36px;">{{ projectsSub }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 26px;">
+        <sc-for list="{{ projects }}" as="pr" hint-placeholder-count="6">
+          <div onClick="{{ pr.open }}" style="cursor: pointer; background: #fff; border: 4px solid #1A1A2E; border-radius: 14px; overflow: hidden; box-shadow: 7px 7px 0 #1A1A2E; transition: transform 0.12s, box-shadow 0.12s; position: relative;" style-hover="transform: translate(-3px,-3px) rotate(-0.5deg); box-shadow: 11px 11px 0 #1A1A2E;">
+            <div style="height: 150px; background: {{ pr.bg }}; border-bottom: 4px solid #1A1A2E; display: flex; align-items: center; justify-content: center; position: relative;">
+              <span style="font-family: 'Bangers', cursive; font-size: 54px; color: #fff; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 4px 4px 0 rgba(26,26,46,0.5);">{{ pr.emoji }}</span>
+              <span style="position: absolute; top: 10px; right: 10px; font-family: 'Bangers', cursive; font-size: 15px; letter-spacing: 1px; background: #1A1A2E; color: #FFD23F; padding: 3px 10px; border-radius: 20px;">#{{ pr.num }}</span>
+            </div>
+            <div style="padding: 18px 20px;">
+              <h3 style="font-family: 'Bangers', cursive; font-size: 24px; letter-spacing: 1.5px; margin: 0 0 8px; color: #D62828;">{{ pr.title }}</h3>
+              <p style="margin: 0 0 12px; font-weight: 700; font-size: 15px; line-height: 1.45;">{{ pr.blurb }}</p>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <sc-for list="{{ pr.tags }}" as="tg" hint-placeholder-count="3">
+                  <span style="font-size: 12px; font-weight: 700; background: #FFD23F; border: 2px solid #1A1A2E; border-radius: 20px; padding: 2px 10px;">{{ tg }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(26,26,46,0.75); display: flex; align-items: center; justify-content: center; padding: 24px;">
+      <div onClick="{{ stopProp }}" style="background: #fff; border: 5px solid #1A1A2E; border-radius: 18px; box-shadow: 12px 12px 0 #1A1A2E; max-width: 560px; width: 100%; padding: 0; animation: pow-pop 0.35s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden;">
+        <div style="height: 130px; background: {{ modalProject.bg }}; border-bottom: 4px solid #1A1A2E; display: flex; align-items: center; justify-content: center;">
+          <span style="font-family: 'Bangers', cursive; font-size: 64px; color: #fff; -webkit-text-stroke: 2px #1A1A2E;">{{ modalProject.emoji }}</span>
+        </div>
+        <button onClick="{{ closeModal }}" style="position: absolute; top: 12px; right: 12px; font-family: 'Bangers', cursive; font-size: 20px; background: #D62828; color: #fff; border: 3px solid #1A1A2E; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; box-shadow: 3px 3px 0 #1A1A2E;" style-hover="transform: rotate(90deg); background: #A31621; color: #fff;">✕</button>
+        <div style="padding: 26px 30px 30px;">
+          <div style="font-family: 'Luckiest Guy', cursive; font-size: 20px; color: #D62828; transform: rotate(-2deg); display: inline-block; margin-bottom: 6px;">{{ modalBang }}</div>
+          <h3 style="font-family: 'Bangers', cursive; font-size: 34px; letter-spacing: 2px; margin: 0 0 12px; color: #1A1A2E;">{{ modalProject.title }}</h3>
+          <p style="font-weight: 700; font-size: 16px; line-height: 1.55; margin: 0 0 16px;">{{ modalProject.detail }}</p>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <sc-for list="{{ modalProject.tags }}" as="tg" hint-placeholder-count="3">
+              <span style="font-size: 13px; font-weight: 700; background: #FFD23F; border: 2px solid #1A1A2E; border-radius: 20px; padding: 3px 12px;">{{ tg }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- SKILLS -->
+  <section id="yetenekler" data-screen-label="Yetenekler" style="padding: 80px 24px; max-width: 1100px; margin: 0 auto;">
+    <h2 style="font-family: 'Bangers', cursive; font-size: clamp(40px, 6vw, 64px); letter-spacing: 3px; color: #4CB5AE; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 4px 4px 0 #D62828; margin: 0 0 36px; transform: rotate(-1deg);">{{ skillsTitle }}</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+      <sc-for list="{{ skills }}" as="sk" hint-placeholder-count="6">
+        <div style="background: #fff; border: 4px solid #1A1A2E; border-radius: 12px; padding: 18px 20px; box-shadow: 5px 5px 0 #1A1A2E;" style-hover="background: #FFF6DE;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-family: 'Bangers', cursive; font-size: 21px; letter-spacing: 1px;">{{ sk.name }}</span>
+            <span style="font-family: 'Luckiest Guy', cursive; font-size: 15px; color: #D62828;">{{ sk.level }}</span>
+          </div>
+          <div style="height: 18px; background: #F9E9C8; border: 3px solid #1A1A2E; border-radius: 12px; overflow: hidden;">
+            <div style="height: 100%; width: {{ sk.pct }}; background: repeating-linear-gradient(45deg, #D62828, #D62828 10px, #FFD23F 10px, #FFD23F 20px); border-right: 3px solid #1A1A2E; transition: width 1s ease;"></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="deneyim" data-screen-label="Deneyim" style="padding: 80px 24px; background: radial-gradient(circle, rgba(26,26,46,0.12) 2px, transparent 2px) 0 0 / 20px 20px, #F9E9C8; border-top: 6px solid #1A1A2E;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-family: 'Bangers', cursive; font-size: clamp(40px, 6vw, 64px); letter-spacing: 3px; color: #D62828; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 4px 4px 0 #4CB5AE; margin: 0 0 44px; transform: rotate(-1deg);">{{ timelineTitle }}</h2>
+      <div style="display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 34px; border-left: 5px dashed #1A1A2E;">
+        <sc-for list="{{ timeline }}" as="tl" hint-placeholder-count="4">
+          <div style="position: relative; padding-bottom: 36px;">
+            <div style="position: absolute; left: -52px; top: 0; width: 30px; height: 30px; background: {{ tl.dotBg }}; border: 4px solid #1A1A2E; border-radius: 50%; box-shadow: 3px 3px 0 #1A1A2E;"></div>
+            <div style="background: #fff; border: 4px solid #1A1A2E; border-radius: 12px; padding: 18px 22px; box-shadow: 6px 6px 0 #1A1A2E; transform: rotate({{ tl.rot }}deg);" style-hover="transform: rotate(0deg) translateX(6px);">
+              <span style="font-family: 'Bangers', cursive; font-size: 16px; letter-spacing: 1px; background: #1A1A2E; color: #FFD23F; padding: 3px 12px; border-radius: 20px;">{{ tl.year }}</span>
+              <h3 style="font-family: 'Bangers', cursive; font-size: 24px; letter-spacing: 1.5px; margin: 10px 0 6px; color: #D62828;">{{ tl.title }}</h3>
+              <p style="margin: 0; font-weight: 700; font-size: 15px; line-height: 1.5;">{{ tl.text }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="iletisim" data-screen-label="İletişim" style="padding: 90px 24px 100px; background: radial-gradient(circle, rgba(255,210,63,0.35) 2px, transparent 2px) 0 0 / 20px 20px, #D62828; border-top: 6px solid #1A1A2E; text-align: center;">
+    <div style="max-width: 640px; margin: 0 auto;">
+      <div style="display: inline-block; font-family: 'Luckiest Guy', cursive; font-size: 30px; color: #D62828; background: #FFD23F; border: 4px solid #1A1A2E; padding: 10px 24px; border-radius: 14px; transform: rotate(-3deg); box-shadow: 5px 5px 0 #1A1A2E; margin-bottom: 20px; animation: wiggle 3s ease-in-out infinite;">{{ contactBang }}</div>
+      <h2 style="font-family: 'Bangers', cursive; font-size: clamp(42px, 7vw, 72px); letter-spacing: 3px; color: #fff; -webkit-text-stroke: 2px #1A1A2E; text-shadow: 5px 5px 0 #1A1A2E; margin: 0 0 16px;">{{ contactTitle }}</h2>
+      <p style="color: #fff; font-weight: 700; font-size: 18px; margin: 0 0 32px;">{{ contactText }}</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="mailto:emre@example.com" style="font-family: 'Bangers', cursive; font-size: 22px; letter-spacing: 2px; text-decoration: none; background: #FFD23F; color: #1A1A2E; border: 4px solid #1A1A2E; border-radius: 12px; padding: 12px 26px; box-shadow: 5px 5px 0 #1A1A2E;" style-hover="transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #1A1A2E; color: #1A1A2E;">✉ E-POSTA</a>
+        <a href="#" style="font-family: 'Bangers', cursive; font-size: 22px; letter-spacing: 2px; text-decoration: none; background: #1A1A2E; color: #FFD23F; border: 4px solid #1A1A2E; border-radius: 12px; padding: 12px 26px; box-shadow: 5px 5px 0 rgba(26,26,46,0.5);" style-hover="transform: translate(-2px,-2px); box-shadow: 7px 7px 0 rgba(26,26,46,0.5); color: #fff;">GITHUB</a>
+        <a href="#" style="font-family: 'Bangers', cursive; font-size: 22px; letter-spacing: 2px; text-decoration: none; background: #fff; color: #D62828; border: 4px solid #1A1A2E; border-radius: 12px; padding: 12px 26px; box-shadow: 5px 5px 0 #1A1A2E;" style-hover="transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #1A1A2E; color: #A31621;">LINKEDIN</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #1A1A2E; color: #FFD23F; text-align: center; padding: 20px; font-family: 'Bangers', cursive; font-size: 18px; letter-spacing: 2px;">
+    {{ footerText }}
+  </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;tr&quot;, &quot;en&quot;], &quot;default&quot;: &quot;tr&quot;, &quot;tsType&quot;: &quot;'tr' | 'en'&quot;, &quot;section&quot;: &quot;Genel&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'tr', modalIndex: -1, loaderPhase: 'in', langFlipKey: 0, wipePhase: 'idle' };
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ loaderPhase: 'out' }), 1100);
+    setTimeout(() => this.setState({ loaderPhase: 'done' }), 1700);
+  }
+
+  data() {
+    const tr = {
+      langButton: 'EN',
+      heroBubble: 'Merhaba! Ben Emre 👋',
+      heroRole: 'FRONTEND DEVELOPER',
+      heroText: 'Piksel piksel arayüz döven, kod bloklarından süper güçler çıkaran bir geliştirici. Web\'i daha eğlenceli bir yer yapmak için buradayım!',
+      heroCta: 'İŞLERİME BAK',
+      navItems: [
+        { label: 'HAKKIMDA', href: '#hakkimda' },
+        { label: 'PROJELER', href: '#projeler' },
+        { label: 'YETENEKLER', href: '#yetenekler' },
+        { label: 'DENEYİM', href: '#deneyim' },
+        { label: 'İLETİŞİM', href: '#iletisim' },
+      ],
+      marqueeWords: ['REACT', 'TYPESCRIPT', 'CSS SİHİRBAZI', 'POW!', 'UI/UX', 'ANİMASYON', 'BAM!', 'PERFORMANS'],
+      aboutTitle: 'HAKKIMDA',
+      aboutPanels: [
+        { icon: '⚡', title: 'SÜPER GÜÇ', text: 'Karmaşık tasarımları piksel-mükemmel, akıcı arayüzlere dönüştürmek. CSS benim örümcek hissim.', bg: '#FFD23F', rot: -1.5 },
+        { icon: '🎯', title: 'GÖREV', text: 'Kullanıcıların "vay be!" dediği, hızlı ve erişilebilir web deneyimleri inşa etmek.', bg: '#4CB5AE', rot: 1 },
+        { icon: '🕹️', title: 'GİZLİ KİMLİK', text: 'Gündüz geliştirici, gece retro oyun koleksiyoncusu ve çizgi roman kurdu.', bg: '#FF9F5A', rot: -0.5 },
+      ],
+      projectsTitle: 'PROJELER!',
+      projectsSub: 'Bir panele tıkla, hikayenin devamını gör! 💥',
+      projects: [
+        { title: 'HIZLI MARKET', emoji: '🛒', bg: '#D62828', blurb: 'Anlık stok takipli e-ticaret arayüzü.', detail: 'React + TypeScript ile kurulan, 60fps mikro animasyonlara sahip e-ticaret deneyimi. Sepet akışı yeniden tasarlandıktan sonra dönüşüm %23 arttı. KAPOW!', tags: ['React', 'TypeScript', 'Zustand'] },
+        { title: 'PANELİX', emoji: '📊', bg: '#4CB5AE', blurb: 'Gerçek zamanlı veri panosu.', detail: 'WebSocket ile canlı akan veriler, sürükle-bırak widget sistemi ve karanlık mod. 10.000+ satırlık tabloları ter dökmeden render eder. ZOOM!', tags: ['Next.js', 'WebSocket', 'D3'] },
+        { title: 'KOMİK-UI', emoji: '🎨', bg: '#FF9F5A', blurb: 'Açık kaynak komponent kütüphanesi.', detail: '40+ erişilebilir komponent, tema desteği ve tam klavye navigasyonu. GitHub\'da 2k yıldız topladı. WHAM!', tags: ['React', 'Storybook', 'a11y'] },
+        { title: 'ROTACI', emoji: '🗺️', bg: '#7B4CB5', blurb: 'Seyahat planlama uygulaması.', detail: 'Harita üzerinde sürükle-bırak rota kurgusu, çevrimdışı destek ve PWA kurulumu. App-store hissi veren web deneyimi. VROOM!', tags: ['PWA', 'Mapbox', 'Vite'] },
+        { title: 'SES DALGASI', emoji: '🎧', bg: '#1A6FB5', blurb: 'Podcast oynatıcı arayüzü.', detail: 'Web Audio API ile dalga formu görselleştirme, bölüm notları senkronizasyonu ve hız kontrolü. Kulaklara ve gözlere bayram. BOOM!', tags: ['Web Audio', 'Svelte', 'CSS'] },
+        { title: 'PİKSEL DÖVÜŞÜ', emoji: '👾', bg: '#B53A5E', blurb: 'Tarayıcıda retro mini oyun.', detail: 'Canvas tabanlı, 60fps platform oyunu. Skor tablosu, gamepad desteği ve 8-bit ses efektleri. Saf eğlence projesi. ZAP!', tags: ['Canvas', 'JS', 'Aseprite'] },
+      ],
+      skillsTitle: 'YETENEKLER',
+      skills: [
+        { name: 'REACT / NEXT.JS', level: 'EFSANE', pct: '95%' },
+        { name: 'TYPESCRIPT', level: 'USTA', pct: '90%' },
+        { name: 'CSS / ANİMASYON', level: 'EFSANE', pct: '95%' },
+        { name: 'NODE.JS', level: 'İYİ', pct: '75%' },
+        { name: 'ERİŞİLEBİLİRLİK', level: 'USTA', pct: '85%' },
+        { name: 'TEST (VITEST/PW)', level: 'İYİ', pct: '78%' },
+      ],
+      timelineTitle: 'MACERA GÜNLÜĞÜ',
+      timeline: [
+        { year: '2024 — BUGÜN', title: 'KIDEMLİ FRONTEND DEV — TECHCO', text: 'Tasarım sistemi liderliği, 8 kişilik ekiple ürün arayüzünün yeniden yazımı.', dotBg: '#D62828', rot: -0.6 },
+        { year: '2021 — 2024', title: 'FRONTEND DEVELOPER — STARTUPX', text: 'MVP\'den 1M kullanıcıya: performans optimizasyonu ve komponent mimarisi.', dotBg: '#FFD23F', rot: 0.6 },
+        { year: '2019 — 2021', title: 'JR. DEVELOPER — AJANS', text: 'Onlarca kampanya sitesi, ilk büyük animasyon projeleri ve bolca kahve.', dotBg: '#4CB5AE', rot: -0.4 },
+        { year: '2019', title: 'ORİJİN HİKAYESİ', text: 'Bilgisayar Mühendisliği mezuniyeti. Radyoaktif bir klavye tarafından ısırıldım.', dotBg: '#FF9F5A', rot: 0.5 },
+      ],
+      contactBang: 'BAM!',
+      contactTitle: 'BİRLİKTE ÇALIŞALIM',
+      contactText: 'Bir proje mi var? Süper kahraman takviyesi mi lazım? Sinyal gönder, hemen geliyorum!',
+      footerText: '© 2026 EMRE — BU SAYFA %100 EL ÇİZİMİ KOD İLE YAPILMIŞTIR ✦',
+    };
+    const en = {
+      langButton: 'TR',
+      heroBubble: 'Hi! I\'m Emre 👋',
+      heroRole: 'FRONTEND DEVELOPER',
+      heroText: 'A developer forging interfaces pixel by pixel, pulling superpowers out of code blocks. Here to make the web a more fun place!',
+      heroCta: 'SEE MY WORK',
+      navItems: [
+        { label: 'ABOUT', href: '#hakkimda' },
+        { label: 'PROJECTS', href: '#projeler' },
+        { label: 'SKILLS', href: '#yetenekler' },
+        { label: 'EXPERIENCE', href: '#deneyim' },
+        { label: 'CONTACT', href: '#iletisim' },
+      ],
+      marqueeWords: ['REACT', 'TYPESCRIPT', 'CSS WIZARD', 'POW!', 'UI/UX', 'ANIMATION', 'BAM!', 'PERFORMANCE'],
+      aboutTitle: 'ABOUT ME',
+      aboutPanels: [
+        { icon: '⚡', title: 'SUPERPOWER', text: 'Turning complex designs into pixel-perfect, buttery-smooth interfaces. CSS is my spider-sense.', bg: '#FFD23F', rot: -1.5 },
+        { icon: '🎯', title: 'MISSION', text: 'Building fast, accessible web experiences that make users go "whoa!"', bg: '#4CB5AE', rot: 1 },
+        { icon: '🕹️', title: 'SECRET IDENTITY', text: 'Developer by day, retro game collector and comic book nerd by night.', bg: '#FF9F5A', rot: -0.5 },
+      ],
+      projectsTitle: 'PROJECTS!',
+      projectsSub: 'Click a panel to see the rest of the story! 💥',
+      projects: [
+        { title: 'SPEEDY MARKET', emoji: '🛒', bg: '#D62828', blurb: 'E-commerce UI with live stock tracking.', detail: 'An e-commerce experience built with React + TypeScript, packed with 60fps micro-animations. Conversion rose 23% after the cart flow redesign. KAPOW!', tags: ['React', 'TypeScript', 'Zustand'] },
+        { title: 'PANELIX', emoji: '📊', bg: '#4CB5AE', blurb: 'Real-time data dashboard.', detail: 'Live-streaming data over WebSocket, drag-and-drop widgets and dark mode. Renders 10,000+ row tables without breaking a sweat. ZOOM!', tags: ['Next.js', 'WebSocket', 'D3'] },
+        { title: 'COMIC-UI', emoji: '🎨', bg: '#FF9F5A', blurb: 'Open-source component library.', detail: '40+ accessible components, theming support and full keyboard navigation. Earned 2k stars on GitHub. WHAM!', tags: ['React', 'Storybook', 'a11y'] },
+        { title: 'WAYFINDER', emoji: '🗺️', bg: '#7B4CB5', blurb: 'Travel planning app.', detail: 'Drag-and-drop route building on a map, offline support and PWA install. A web experience that feels app-store native. VROOM!', tags: ['PWA', 'Mapbox', 'Vite'] },
+        { title: 'SOUNDWAVE', emoji: '🎧', bg: '#1A6FB5', blurb: 'Podcast player interface.', detail: 'Waveform visualization with Web Audio API, chapter note sync and speed control. A feast for ears and eyes. BOOM!', tags: ['Web Audio', 'Svelte', 'CSS'] },
+        { title: 'PIXEL BRAWL', emoji: '👾', bg: '#B53A5E', blurb: 'Retro mini game in the browser.', detail: 'Canvas-based 60fps platformer. Leaderboard, gamepad support and 8-bit sound effects. A pure fun project. ZAP!', tags: ['Canvas', 'JS', 'Aseprite'] },
+      ],
+      skillsTitle: 'SKILLS',
+      skills: [
+        { name: 'REACT / NEXT.JS', level: 'LEGENDARY', pct: '95%' },
+        { name: 'TYPESCRIPT', level: 'MASTER', pct: '90%' },
+        { name: 'CSS / ANIMATION', level: 'LEGENDARY', pct: '95%' },
+        { name: 'NODE.JS', level: 'SOLID', pct: '75%' },
+        { name: 'ACCESSIBILITY', level: 'MASTER', pct: '85%' },
+        { name: 'TESTING (VITEST/PW)', level: 'SOLID', pct: '78%' },
+      ],
+      timelineTitle: 'ADVENTURE LOG',
+      timeline: [
+        { year: '2024 — NOW', title: 'SENIOR FRONTEND DEV — TECHCO', text: 'Leading the design system, rebuilding the product UI with a team of 8.', dotBg: '#D62828', rot: -0.6 },
+        { year: '2021 — 2024', title: 'FRONTEND DEVELOPER — STARTUPX', text: 'From MVP to 1M users: performance work and component architecture.', dotBg: '#FFD23F', rot: 0.6 },
+        { year: '2019 — 2021', title: 'JR. DEVELOPER — AGENCY', text: 'Dozens of campaign sites, first big animation projects and lots of coffee.', dotBg: '#4CB5AE', rot: -0.4 },
+        { year: '2019', title: 'ORIGIN STORY', text: 'Computer Engineering graduation. Bitten by a radioactive keyboard.', dotBg: '#FF9F5A', rot: 0.5 },
+      ],
+      contactBang: 'BAM!',
+      contactTitle: 'LET\'S WORK TOGETHER',
+      contactText: 'Got a project? Need superhero reinforcements? Send the signal, I\'ll be right there!',
+      footerText: '© 2026 EMRE — THIS PAGE IS MADE OF 100% HAND-DRAWN CODE ✦',
+    };
+    return this.state.lang === 'tr' ? tr : en;
+  }
+
+  renderVals() {
+    const lang = this.props.defaultLang && !this._langTouched ? this.props.defaultLang : this.state.lang;
+    if (lang !== this.state.lang) this.state.lang = lang;
+    const d = this.data();
+    const bangs = ['KAPOW!', 'ZOOM!', 'WHAM!', 'VROOM!', 'BOOM!', 'ZAP!'];
+    const projects = d.projects.map((p, i) => ({
+      ...p,
+      num: String(i + 1).padStart(2, '0'),
+      open: () => this.setState({ modalIndex: i }),
+    }));
+    const mi = this.state.modalIndex;
+    const lp = this.state.loaderPhase;
+    return {
+      ...d,
+      projects,
+      showLoader: lp !== 'done',
+      loaderAnim: lp === 'out' ? 'loader-out 0.6s ease forwards' : 'none',
+      loaderText: this.state.lang === 'tr' ? 'YÜKLENİYOR...' : 'LOADING...',
+      pageAnim: lp === 'done' ? 'none' : 'page-in 0.8s ease 0.2s backwards',
+      langWipe: this.state.wipePhase !== 'idle',
+      langWipeAnim: this.state.wipePhase === 'cover' ? 'wipe-in 0.45s cubic-bezier(0.65,0,0.35,1) forwards' : 'wipe-out 0.45s cubic-bezier(0.65,0,0.35,1) forwards',
+      langWipeText: this.state.lang === 'tr' ? 'FLIP!' : 'HOP!',
+      toggleLang: () => {
+        if (this.state.wipePhase !== 'idle') return;
+        this._langTouched = true;
+        this.setState({ wipePhase: 'cover' });
+        setTimeout(() => this.setState(s => ({ lang: s.lang === 'tr' ? 'en' : 'tr', wipePhase: 'reveal' })), 480);
+        setTimeout(() => this.setState({ wipePhase: 'idle' }), 950);
+      },
+      modalOpen: mi >= 0,
+      modalProject: mi >= 0 ? projects[mi] : { title: '', detail: '', tags: [], bg: '#D62828', emoji: '' },
+      modalBang: mi >= 0 ? bangs[mi % bangs.length] : '',
+      closeModal: () => this.setState({ modalIndex: -1 }),
+      stopProp: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>
