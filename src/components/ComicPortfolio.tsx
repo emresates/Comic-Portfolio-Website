@@ -25,6 +25,15 @@ type ComicPortfolioProps = {
   defaultLang?: Lang;
 };
 
+const sectionTitleBase =
+  "font-display text-[clamp(40px,6vw,64px)] tracking-[3px] text-stroke-ink -rotate-1 mb-9";
+
+const comicCardBase =
+  "border-4 border-ink rounded-2xl bg-white shadow-[6px_6px_0_#1a1a2e] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#1a1a2e]";
+
+const contactBtnBase =
+  "font-display inline-block rounded-xl border-4 border-ink px-6 py-3 text-base tracking-[2px] no-underline shadow-[4px_4px_0_#1a1a2e] transition-[transform,box-shadow,background,color] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#1a1a2e]";
+
 export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const { lang, setLang } = usePersistedLang(defaultLang);
   const { muted, toggleMute, play } = useSfx();
@@ -84,42 +93,15 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const marqueeWords = [...content.marqueeWords, ...content.marqueeWords];
 
   return (
-    <div
-      className="font-comic"
-      style={{
-        background: "#F9E9C8",
-        color: "#1A1A2E",
-        minHeight: "100vh",
-        overflowX: "hidden",
-      }}
-    >
+    <div className="min-h-screen overflow-x-hidden bg-cream font-body text-ink">
       {wipePhase !== "idle" && (
         <div
-          className={wipePhase === "cover" ? "anim-wipe-in" : "anim-wipe-out"}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 150,
-            background:
-              "radial-gradient(circle, rgba(26,26,46,0.25) 2.4px, transparent 2.4px) 0 0 / 20px 20px, #D62828",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRight: "8px solid #1A1A2E",
-            borderLeft: "8px solid #1A1A2E",
-          }}
+          className={`fixed inset-0 z-[150] flex items-center justify-center border-x-8 border-ink bg-dots-loader bg-comic-red ${
+            wipePhase === "cover" ? "animate-wipe-in" : "animate-wipe-out"
+          }`}
           aria-hidden
         >
-          <div
-            className="font-bangers anim-bang-in"
-            style={{
-              fontSize: "clamp(60px, 12vw, 120px)",
-              letterSpacing: 4,
-              color: "#FFD23F",
-              WebkitTextStroke: "4px #1A1A2E",
-              textShadow: "8px 8px 0 #1A1A2E",
-            }}
-          >
+          <div className="animate-bang-in font-display text-[clamp(60px,12vw,120px)] tracking-[4px] text-comic-yellow text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
             {lang === "tr" ? "FLIP!" : "HOP!"}
           </div>
         </div>
@@ -127,53 +109,21 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
       {loaderPhase !== "done" && (
         <div
-          className={loaderPhase === "out" ? "anim-loader-out" : undefined}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 200,
-            background:
-              "radial-gradient(circle, rgba(26,26,46,0.25) 2.4px, transparent 2.4px) 0 0 / 20px 20px, #FFD23F",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            gap: 18,
-          }}
+          className={`fixed inset-0 z-[200] flex flex-col items-center justify-center gap-[18px] bg-dots-loader bg-comic-yellow ${
+            loaderPhase === "out" ? "animate-loader-out" : ""
+          }`}
           aria-hidden
         >
-          <div
-            className="font-bangers anim-loader-pop"
-            style={{
-              fontSize: "clamp(64px, 14vw, 140px)",
-              letterSpacing: 4,
-              color: "#D62828",
-              WebkitTextStroke: "4px #1A1A2E",
-              textShadow: "8px 8px 0 #1A1A2E",
-              transform: "rotate(-4deg)",
-            }}
-          >
+          <div className="animate-loader-pop -rotate-[4deg] font-display text-[clamp(64px,14vw,140px)] tracking-[4px] text-comic-red text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
             POW!
           </div>
-          <div
-            className="font-luckiest"
-            style={{
-              fontSize: 20,
-              color: "#1A1A2E",
-              background: "#fff",
-              border: "4px solid #1A1A2E",
-              borderRadius: 12,
-              padding: "8px 20px",
-              boxShadow: "4px 4px 0 #1A1A2E",
-              transform: "rotate(2deg)",
-            }}
-          >
+          <div className="rotate-[2deg] rounded-xl border-4 border-ink bg-white px-5 py-2 font-stamp text-xl text-ink shadow-[4px_4px_0_#1a1a2e]">
             {content.loaderText}
           </div>
         </div>
       )}
 
-      <div className={loaderPhase === "done" ? undefined : "anim-page-in"}>
+      <div className={loaderPhase === "done" ? undefined : "animate-page-in"}>
         <SiteNav
           brandHref={`/?lang=${lang}`}
           langButton={content.langButton}
@@ -197,121 +147,47 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
         <header
           id="hero"
-          className="hero-section"
+          className="border-b-[6px] border-ink bg-halftone-soft bg-cream px-4 py-20"
         >
-          <div
-            style={{
-              maxWidth: 1100,
-              margin: "0 auto",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 40,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-10">
             <CharacterAvatar />
-            <div style={{ maxWidth: 560, textAlign: "center" }}>
-              <div
-                style={{
-                  display: "inline-block",
-                  background: "#fff",
-                  border: "4px solid #1A1A2E",
-                  borderRadius: 16,
-                  padding: "10px 22px",
-                  fontWeight: 700,
-                  fontSize: 18,
-                  boxShadow: "5px 5px 0 #1A1A2E",
-                  position: "relative",
-                  marginBottom: 18,
-                }}
-              >
+            <div className="max-w-[560px] text-center">
+              <div className="relative mb-[18px] inline-block rounded-2xl border-4 border-ink bg-white px-[22px] py-2.5 text-lg font-bold shadow-[5px_5px_0_#1a1a2e]">
                 {content.heroBubble}
                 <div
-                  style={{
-                    position: "absolute",
-                    bottom: -16,
-                    left: 40,
-                    width: 0,
-                    height: 0,
-                    borderLeft: "14px solid transparent",
-                    borderRight: "4px solid transparent",
-                    borderTop: "16px solid #1A1A2E",
-                  }}
+                  className="absolute -bottom-4 left-10 size-0 border-t-16 border-r-1 border-l-[14px] border-t-ink border-r-transparent border-l-transparent"
+                  aria-hidden
+                />
+                <div
+                  className="absolute bottom-[-11px] left-[43px] size-0 border-t-12 border-r-1 border-l-[10px] border-t-white border-r-transparent border-l-transparent"
+                  aria-hidden
                 />
               </div>
-              <h1
-                className="font-bangers"
-                style={{
-                  fontSize: "clamp(52px, 9vw, 104px)",
-                  lineHeight: 0.95,
-                  margin: 0,
-                  color: "#FFD23F",
-                  WebkitTextStroke: "3px #1A1A2E",
-                  textShadow: "6px 6px 0 #D62828, 8px 8px 0 #1A1A2E",
-                  letterSpacing: 3,
-                }}
-              >
+              <h1 className="m-0 font-display text-[clamp(52px,9vw,104px)] leading-[0.95] tracking-[3px] text-comic-yellow text-stroke-ink-lg [text-shadow:6px_6px_0_#d62828,8px_8px_0_#1a1a2e]">
                 EMRE
               </h1>
-              <h2
-                className="font-luckiest"
-                style={{
-                  fontSize: "clamp(22px, 4vw, 36px)",
-                  margin: "14px 0 0",
-                  color: "#fff",
-                  background: "#1A1A2E",
-                  display: "inline-block",
-                  padding: "6px 20px",
-                  transform: "rotate(-1.5deg)",
-                  borderRadius: 6,
-                }}
-              >
+              <h2 className="mt-3.5 inline-block -rotate-[1.5deg] rounded-md bg-ink px-5 py-1.5 font-stamp text-[clamp(22px,4vw,36px)] text-white">
                 {content.heroRole}
               </h2>
-              <p
-                style={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  margin: "22px auto 28px",
-                  maxWidth: 440,
-                }}
-              >
+              <p className="mx-auto mb-7 mt-[22px] max-w-[440px] text-lg font-bold">
                 {content.heroText}
               </p>
-              <a href="#projeler" className="hero-cta">
+              <a
+                href="#projeler"
+                className="inline-block rounded-xl border-4 border-ink bg-comic-red px-6 py-3 font-display text-lg tracking-wide text-white no-underline shadow-[5px_5px_0_#1a1a2e] transition-[transform,box-shadow,background,color] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-comic-red-dark hover:text-white hover:shadow-[7px_7px_0_#1a1a2e]"
+              >
                 {content.heroCta} →
               </a>
             </div>
           </div>
         </header>
 
-        <div
-          style={{
-            background: "#1A1A2E",
-            borderBottom: "6px solid #1A1A2E",
-            overflow: "hidden",
-            padding: "10px 0",
-          }}
-        >
-          <div
-            className="anim-marquee"
-            style={{
-              display: "flex",
-              gap: 40,
-              whiteSpace: "nowrap",
-              width: "max-content",
-            }}
-          >
+        <div className="overflow-hidden border-b-[6px] border-ink bg-ink py-2.5">
+          <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
             {marqueeWords.map((w, i) => (
               <span
                 key={`${w}-${i}`}
-                className="font-bangers"
-                style={{
-                  fontSize: 22,
-                  letterSpacing: 3,
-                  color: "#FFD23F",
-                }}
+                className="font-display text-[22px] tracking-[3px] text-comic-yellow"
               >
                 {w} ✦
               </span>
@@ -319,69 +195,27 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           </div>
         </div>
 
-        <section
-          id="hakkimda"
-          style={{
-            padding: "80px 24px",
-            maxWidth: 1100,
-            margin: "0 auto",
-          }}
-        >
+        <section id="hakkimda" className="mx-auto max-w-[1100px] px-4 py-20">
           <h2
-            className="font-bangers"
-            style={{
-              fontSize: "clamp(40px, 6vw, 64px)",
-              letterSpacing: 3,
-              color: "#D62828",
-              WebkitTextStroke: "2px #1A1A2E",
-              textShadow: "4px 4px 0 #FFD23F",
-              margin: "0 0 36px",
-              transform: "rotate(-1deg)",
-            }}
+            className={`${sectionTitleBase} mb-9 text-comic-red [text-shadow:4px_4px_0_#ffd23f]`}
           >
             {content.aboutTitle}
           </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {content.aboutPanels.map((p) => (
               <div
                 key={p.title}
-                className="about-card"
+                className={`${comicCardBase} p-6`}
                 style={{
                   background: p.bg,
                   transform: `rotate(${p.rot}deg)`,
                 }}
               >
-                <div
-                  className="font-luckiest"
-                  style={{ fontSize: 40, marginBottom: 8 }}
-                >
-                  {p.icon}
-                </div>
-                <h3
-                  className="font-bangers"
-                  style={{
-                    fontSize: 26,
-                    letterSpacing: 2,
-                    margin: "0 0 10px",
-                    color: "#1A1A2E",
-                  }}
-                >
+                <div className="mb-2 font-stamp text-[40px]">{p.icon}</div>
+                <h3 className="mb-2.5 font-display text-[26px] tracking-[2px] text-ink">
                   {p.title}
                 </h3>
-                <p
-                  style={{
-                    margin: 0,
-                    fontWeight: 700,
-                    fontSize: 16,
-                    lineHeight: 1.5,
-                  }}
-                >
+                <p className="m-0 text-base font-bold leading-normal">
                   {p.text}
                 </p>
               </div>
@@ -391,124 +225,51 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
         <section
           id="projeler"
-          style={{
-            padding: "80px 24px",
-            background:
-              "radial-gradient(circle, rgba(214,40,40,0.18) 2px, transparent 2px) 0 0 / 22px 22px, #FFD23F",
-            borderTop: "6px solid #1A1A2E",
-            borderBottom: "6px solid #1A1A2E",
-          }}
+          className="border-y-[6px] border-ink bg-halftone-red bg-comic-yellow px-4 py-20"
         >
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="mx-auto max-w-[1100px]">
             <h2
-              className="font-bangers"
-              style={{
-                fontSize: "clamp(40px, 6vw, 64px)",
-                letterSpacing: 3,
-                color: "#fff",
-                WebkitTextStroke: "2px #1A1A2E",
-                textShadow: "5px 5px 0 #D62828",
-                margin: "0 0 12px",
-                transform: "rotate(-1deg)",
-              }}
+              className={`${sectionTitleBase} mb-3 text-white [text-shadow:5px_5px_0_#d62828]`}
             >
               {content.projectsTitle}
             </h2>
-            <p style={{ fontWeight: 700, fontSize: 18, margin: "0 0 36px" }}>
-              {content.projectsSub}
-            </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-                gap: 26,
-              }}
-            >
+            <p className="mb-9 text-lg font-bold">{content.projectsSub}</p>
+            <div className="grid grid-cols-1 gap-[26px] sm:grid-cols-2 lg:grid-cols-3">
               {content.projects.map((pr, i) => (
                 <button
                   key={pr.title}
                   type="button"
-                  className="project-card"
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl border-4 border-ink bg-white text-left shadow-[6px_6px_0_#1a1a2e] transition-[transform,box-shadow] duration-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[9px_9px_0_#1a1a2e] focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-comic-yellow"
                   onClick={() => openProject(i)}
                   onMouseEnter={() => play("thwip")}
                   onFocus={() => play("thwip")}
                 >
-                  <span className="card-bang">
+                  <span className="absolute left-1 top-2 z-10 -rotate-[8deg] rounded-[10px] border-2 border-ink bg-comic-yellow px-2.5 py-0.5 font-display text-[15px] tracking-wide text-comic-red opacity-0 shadow-[2px_2px_0_#1a1a2e] transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100">
                     {MODAL_BANGS[i % MODAL_BANGS.length]}
                   </span>
                   <div
-                    style={{
-                      height: 150,
-                      background: pr.bg,
-                      borderBottom: "4px solid #1A1A2E",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                    }}
+                    className="relative flex h-[150px] items-center justify-center border-b-4 border-ink"
+                    style={{ background: pr.bg }}
                   >
-                    <span
-                      className="font-bangers"
-                      style={{
-                        fontSize: 54,
-                        color: "#fff",
-                        WebkitTextStroke: "2px #1A1A2E",
-                        textShadow: "4px 4px 0 rgba(26,26,46,0.5)",
-                      }}
-                    >
+                    <span className="font-display text-[54px] text-white text-stroke-ink [text-shadow:4px_4px_0_rgba(26,26,46,0.5)]">
                       {pr.emoji}
                     </span>
-                    <span
-                      className="font-bangers"
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                        fontSize: 15,
-                        letterSpacing: 1,
-                        background: "#1A1A2E",
-                        color: "#FFD23F",
-                        padding: "3px 10px",
-                        borderRadius: 20,
-                      }}
-                    >
+                    <span className="absolute right-2.5 top-2.5 rounded-[20px] bg-ink px-2.5 py-[3px] font-display text-[15px] tracking-wide text-comic-yellow">
                       #{String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  <div style={{ padding: "18px 20px" }}>
-                    <h3
-                      className="font-bangers"
-                      style={{
-                        fontSize: 24,
-                        letterSpacing: 1.5,
-                        margin: "0 0 8px",
-                        color: "#D62828",
-                      }}
-                    >
+                  <div className="px-5 py-[18px]">
+                    <h3 className="mb-2 font-display text-2xl tracking-[1.5px] text-comic-red">
                       {pr.title}
                     </h3>
-                    <p
-                      style={{
-                        margin: "0 0 12px",
-                        fontWeight: 700,
-                        fontSize: 15,
-                        lineHeight: 1.45,
-                      }}
-                    >
+                    <p className="mb-3 text-[15px] font-bold leading-snug">
                       {pr.blurb}
                     </p>
-                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    <div className="flex flex-wrap gap-1.5">
                       {pr.tags.map((tg) => (
                         <span
                           key={tg}
-                          style={{
-                            fontSize: 12,
-                            fontWeight: 700,
-                            background: "#FFD23F",
-                            border: "2px solid #1A1A2E",
-                            borderRadius: 20,
-                            padding: "2px 10px",
-                          }}
+                          className="rounded-[20px] border-2 border-ink bg-comic-yellow px-2.5 py-0.5 text-xs font-bold"
                         >
                           {tg}
                         </span>
@@ -536,68 +297,31 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           />
         )}
 
-        <section
-          id="yetenekler"
-          style={{
-            padding: "80px 24px",
-            maxWidth: 1100,
-            margin: "0 auto",
-          }}
-        >
+        <section id="yetenekler" className="mx-auto max-w-[1100px] px-4 py-20">
           <h2
-            className="font-bangers"
-            style={{
-              fontSize: "clamp(40px, 6vw, 64px)",
-              letterSpacing: 3,
-              color: "#4CB5AE",
-              WebkitTextStroke: "2px #1A1A2E",
-              textShadow: "4px 4px 0 #D62828",
-              margin: "0 0 36px",
-              transform: "rotate(-1deg)",
-            }}
+            className={`${sectionTitleBase} text-comic-teal [text-shadow:4px_4px_0_#d62828]`}
           >
             {content.skillsTitle}
           </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: 20,
-            }}
-          >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {content.skills.map((sk) => (
-              <div key={sk.name} className="skill-card">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 10,
-                  }}
-                >
-                  <span
-                    className="font-bangers"
-                    style={{ fontSize: 21, letterSpacing: 1 }}
-                  >
+              <div
+                key={sk.name}
+                className="rounded-xl border-4 border-ink bg-white p-5 shadow-[4px_4px_0_#1a1a2e]"
+              >
+                <div className="mb-2.5 flex items-center justify-between">
+                  <span className="font-display text-[21px] tracking-wide">
                     {sk.name}
                   </span>
-                  <span
-                    className="font-luckiest"
-                    style={{ fontSize: 15, color: "#D62828" }}
-                  >
+                  <span className="font-stamp text-[15px] text-comic-red">
                     {sk.level}
                   </span>
                 </div>
-                <div
-                  style={{
-                    height: 18,
-                    background: "#F9E9C8",
-                    border: "3px solid #1A1A2E",
-                    borderRadius: 12,
-                    overflow: "hidden",
-                  }}
-                >
-                  <div className="skill-fill" style={{ width: sk.pct }} />
+                <div className="h-[18px] overflow-hidden rounded-xl border-[3px] border-ink bg-cream">
+                  <div
+                    className="h-full rounded-lg bg-skill-stripes transition-[width] duration-500"
+                    style={{ width: sk.pct }}
+                  />
                 </div>
               </div>
             ))}
@@ -606,95 +330,32 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
         <section
           id="deneyim"
-          style={{
-            padding: "80px 24px",
-            background:
-              "radial-gradient(circle, rgba(26,26,46,0.12) 2px, transparent 2px) 0 0 / 20px 20px, #F9E9C8",
-            borderTop: "6px solid #1A1A2E",
-          }}
+          className="border-t-[6px] border-ink bg-halftone-soft bg-cream px-4 py-20"
         >
-          <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <div className="mx-auto max-w-[800px]">
             <h2
-              className="font-bangers"
-              style={{
-                fontSize: "clamp(40px, 6vw, 64px)",
-                letterSpacing: 3,
-                color: "#D62828",
-                WebkitTextStroke: "2px #1A1A2E",
-                textShadow: "4px 4px 0 #4CB5AE",
-                margin: "0 0 44px",
-                transform: "rotate(-1deg)",
-              }}
+              className={`${sectionTitleBase} mb-11 text-comic-red [text-shadow:4px_4px_0_#4cb5ae]`}
             >
               {content.timelineTitle}
             </h2>
-            <div
-              className="timeline-track"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 0,
-                position: "relative",
-                paddingLeft: 34,
-                borderLeft: "5px dashed #1A1A2E",
-              }}
-            >
+            <div className="relative flex flex-col border-l-[5px] border-dashed border-ink pl-[34px]">
               {content.timeline.map((tl) => (
-                <div
-                  key={tl.title}
-                  className="timeline-item"
-                  style={{ position: "relative", paddingBottom: 36 }}
-                >
+                <div key={tl.title} className="relative pb-9">
                   <div
-                    className="timeline-dot"
-                    style={{
-                      position: "absolute",
-                      left: -52,
-                      top: 0,
-                      width: 30,
-                      height: 30,
-                      background: tl.dotBg,
-                      border: "4px solid #1A1A2E",
-                      borderRadius: "50%",
-                      boxShadow: "3px 3px 0 #1A1A2E",
-                    }}
+                    className="absolute -left-[52px] top-0 size-[30px] rounded-full border-4 border-ink shadow-[3px_3px_0_#1a1a2e]"
+                    style={{ background: tl.dotBg }}
                   />
                   <div
-                    className="timeline-card"
+                    className={`${comicCardBase} p-5`}
                     style={{ transform: `rotate(${tl.rot}deg)` }}
                   >
-                    <span
-                      className="font-bangers"
-                      style={{
-                        fontSize: 16,
-                        letterSpacing: 1,
-                        background: "#1A1A2E",
-                        color: "#FFD23F",
-                        padding: "3px 12px",
-                        borderRadius: 20,
-                      }}
-                    >
+                    <span className="inline-block rounded-[20px] bg-ink px-3 py-[3px] font-display text-base tracking-wide text-comic-yellow">
                       {tl.year}
                     </span>
-                    <h3
-                      className="font-bangers"
-                      style={{
-                        fontSize: 24,
-                        letterSpacing: 1.5,
-                        margin: "10px 0 6px",
-                        color: "#D62828",
-                      }}
-                    >
+                    <h3 className="my-2.5 mb-1.5 font-display text-2xl tracking-[1.5px] text-comic-red">
                       {tl.title}
                     </h3>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontWeight: 700,
-                        fontSize: 15,
-                        lineHeight: 1.5,
-                      }}
-                    >
+                    <p className="m-0 text-[15px] font-bold leading-normal">
                       {tl.text}
                     </p>
                   </div>
@@ -717,93 +378,45 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
         <section
           id="iletisim"
-          style={{
-            padding: "90px 24px 100px",
-            background:
-              "radial-gradient(circle, rgba(255,210,63,0.35) 2px, transparent 2px) 0 0 / 20px 20px, #D62828",
-            borderTop: "6px solid #1A1A2E",
-            textAlign: "center",
-          }}
+          className="border-t-[6px] border-ink bg-halftone-yellow bg-comic-red px-4 py-[90px] pb-[100px] text-center"
         >
-          <div style={{ maxWidth: 640, margin: "0 auto" }}>
-            <div
-              className="font-luckiest anim-wiggle-slow"
-              style={{
-                display: "inline-block",
-                fontSize: 30,
-                color: "#D62828",
-                background: "#FFD23F",
-                border: "4px solid #1A1A2E",
-                padding: "10px 24px",
-                borderRadius: 14,
-                transform: "rotate(-3deg)",
-                boxShadow: "5px 5px 0 #1A1A2E",
-                marginBottom: 20,
-              }}
-            >
+          <div className="mx-auto max-w-[640px]">
+            <div className="mb-5 inline-block -rotate-[3deg] animate-wiggle-slow rounded-[14px] border-4 border-ink bg-comic-yellow px-6 py-2.5 font-stamp text-[30px] text-comic-red shadow-[5px_5px_0_#1a1a2e]">
               {content.contactBang}
             </div>
-            <h2
-              className="font-bangers"
-              style={{
-                fontSize: "clamp(42px, 7vw, 72px)",
-                letterSpacing: 3,
-                color: "#fff",
-                WebkitTextStroke: "2px #1A1A2E",
-                textShadow: "5px 5px 0 #1A1A2E",
-                margin: "0 0 16px",
-              }}
-            >
+            <h2 className="mb-4 font-display text-[clamp(42px,7vw,72px)] tracking-[3px] text-white text-stroke-ink [text-shadow:5px_5px_0_#1a1a2e]">
               {content.contactTitle}
             </h2>
-            <p
-              style={{
-                color: "#fff",
-                fontWeight: 700,
-                fontSize: 18,
-                margin: "0 0 32px",
-              }}
-            >
+            <p className="mb-8 text-lg font-bold text-white">
               {content.contactText}
             </p>
-            <div
-              style={{
-                display: "flex",
-                gap: 16,
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
+            <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="mailto:emre@example.com"
-                className="contact-btn contact-email"
+                className={`${contactBtnBase} bg-white text-comic-red hover:bg-comic-cream-hot hover:text-comic-red-dark`}
               >
                 ✉ E-POSTA
               </a>
-              <a href="#" className="contact-btn contact-github">
+              <a
+                href="#"
+                className={`${contactBtnBase} bg-ink text-comic-yellow hover:bg-comic-red-dark hover:text-white`}
+              >
                 GITHUB
               </a>
-              <a href="#" className="contact-btn contact-linkedin">
+              <a
+                href="#"
+                className={`${contactBtnBase} bg-comic-teal text-white hover:bg-comic-orange hover:text-ink`}
+              >
                 LINKEDIN
               </a>
             </div>
           </div>
         </section>
 
-        <footer
-          className="font-bangers"
-          style={{
-            background: "#1A1A2E",
-            color: "#FFD23F",
-            textAlign: "center",
-            padding: 20,
-            fontSize: 18,
-            letterSpacing: 2,
-          }}
-        >
+        <footer className="bg-ink p-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
           {content.footerText}
           {highScore > 0 && (
-            <span style={{ display: "block", marginTop: 8, color: "#fff" }}>
+            <span className="mt-2 block text-white">
               🐛 {content.gameHigh}: {highScore}
             </span>
           )}

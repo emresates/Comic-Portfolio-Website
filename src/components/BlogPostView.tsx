@@ -11,6 +11,9 @@ type BlogPostViewProps = {
   defaultLang?: Lang;
 };
 
+const storyLinkBtn =
+  "inline-block rounded-[10px] border-[3px] border-ink bg-comic-yellow px-4 py-2 font-display text-base tracking-wide text-ink no-underline shadow-[3px_3px_0_#1a1a2e] transition-[transform,box-shadow,background,color] duration-[120ms] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-white hover:text-comic-red hover:shadow-[5px_5px_0_#1a1a2e]";
+
 export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
   const { lang, setLang } = usePersistedLang(defaultLang);
   const content = getContent(lang);
@@ -18,14 +21,7 @@ export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
     getBlogPosts(lang).find((p) => p.issue === post.issue) ?? post;
 
   return (
-    <div
-      className="font-comic"
-      style={{
-        background: "#F9E9C8",
-        color: "#1A1A2E",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="min-h-screen bg-cream font-body text-ink">
       <SiteNav
         brandHref={`/?lang=${lang}`}
         langButton={content.langButton}
@@ -37,55 +33,54 @@ export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
       />
 
       <header
-        className="blog-post-cover"
+        className="relative overflow-hidden border-b-[6px] border-ink px-6 py-14 pb-12 text-center max-[760px]:px-4 max-[760px]:py-10 max-[760px]:pb-9"
         style={{ background: localized.coverBg }}
       >
-        <div className="comic-cover__halftone" aria-hidden />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <span className="font-bangers blog-post-cover__issue">
+        <div className="pointer-events-none absolute inset-0 bg-halftone-dark" aria-hidden />
+        <div className="relative z-1">
+          <span className="mb-3 inline-block rounded-md bg-ink px-3 py-1 font-display tracking-wide text-comic-yellow">
             {content.issueLabel} #{localized.issue}
           </span>
-          <div className="blog-post-cover__emoji">{localized.emoji}</div>
-          <p className="font-luckiest blog-post-cover__bang">
+          <div className="text-[72px] drop-shadow-[4px_4px_0_#1a1a2e]">
+            {localized.emoji}
+          </div>
+          <p className="my-2 inline-block -rotate-[4deg] rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3 py-1 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
             {localized.bang}
           </p>
-          <h1 className="font-bangers blog-post-cover__title">
+          <h1 className="my-2 font-display text-[clamp(36px,7vw,64px)] tracking-[2px] text-comic-yellow text-stroke-ink [text-shadow:4px_4px_0_#1a1a2e]">
             {localized.title}
           </h1>
-          <p className="blog-post-cover__date">{localized.date}</p>
+          <p className="m-0 font-bold text-white [text-shadow:2px_2px_0_#1a1a2e]">
+            {localized.date}
+          </p>
         </div>
       </header>
 
-      <article className="blog-post-body">
+      <article className="mx-auto max-w-[720px] px-6 py-12 pb-18 max-[760px]:px-4 max-[760px]:py-8 max-[760px]:pb-14">
         {localized.body.map((para) => (
-          <div key={para} className="blog-panel">
-            <p>{para}</p>
+          <div
+            key={para}
+            className="mb-4 rounded border-4 border-ink bg-white px-[22px] py-5 shadow-[5px_5px_0_#1a1a2e]"
+          >
+            <p className="m-0 text-[17px] font-bold leading-[1.55]">{para}</p>
           </div>
         ))}
-        <div className="blog-post-tags">
+        <div className="my-2 mb-6 flex flex-wrap gap-2">
           {localized.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <span
+              key={tag}
+              className="rounded-2xl border-2 border-ink bg-comic-yellow px-3 py-0.5 text-[13px] font-bold"
+            >
+              {tag}
+            </span>
           ))}
         </div>
-        <Link
-          href={`/blog?lang=${lang}`}
-          className="project-link-btn project-link-story"
-        >
+        <Link href={`/blog?lang=${lang}`} className={storyLinkBtn}>
           {content.blogBack}
         </Link>
       </article>
 
-      <footer
-        className="font-bangers"
-        style={{
-          background: "#1A1A2E",
-          color: "#FFD23F",
-          textAlign: "center",
-          padding: 20,
-          fontSize: 18,
-          letterSpacing: 2,
-        }}
-      >
+      <footer className="bg-ink px-5 py-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
         {content.footerText}
       </footer>
     </div>

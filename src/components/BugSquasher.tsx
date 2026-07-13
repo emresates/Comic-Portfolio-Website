@@ -24,6 +24,12 @@ type BugSquasherProps = {
 
 const DURATION = 10;
 
+const hudBadge =
+  "bg-comic-yellow text-ink border-[3px] border-ink rounded-lg px-3 py-1.5 font-display text-base tracking-wide shadow-[3px_3px_0_rgba(0,0,0,0.35)] max-[760px]:text-sm max-[760px]:px-2.5 max-[760px]:py-1.5";
+
+const startBtn =
+  "font-display text-2xl tracking-wide cursor-pointer bg-comic-red text-white border-4 border-ink rounded-xl px-7 py-3 shadow-[5px_5px_0_#1a1a2e] transition-[transform,box-shadow,background] duration-[120ms] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_#1a1a2e] hover:bg-comic-red-dark";
+
 export function BugSquasher({
   title,
   sub,
@@ -131,40 +137,53 @@ export function BugSquasher({
   };
 
   return (
-    <section id="oyun" className="bug-section">
-      <div className="bug-section__inner">
-        <h2 className="font-bangers bug-section__title">{title}</h2>
-        <p className="bug-section__sub">{sub}</p>
+    <section
+      id="oyun"
+      className="border-t-[6px] border-ink bg-ink bg-[radial-gradient(circle,rgba(76,181,174,0.25)_2px,transparent_2px)_0_0/20px_20px] px-6 py-20 max-[760px]:px-4 max-[760px]:py-14"
+    >
+      <div className="mx-auto max-w-[720px]">
+        <h2 className="m-0 mb-2.5 -rotate-1 font-display text-[clamp(40px,6vw,64px)] tracking-[3px] text-comic-yellow text-stroke-ink [text-shadow:4px_4px_0_#d62828]">
+          {title}
+        </h2>
+        <p className="m-0 mb-5 text-[17px] font-bold text-white">{sub}</p>
 
-        <div className="bug-hud font-bangers">
-          <span>
+        <div className="mb-3.5 flex flex-wrap gap-3 font-display">
+          <span className={hudBadge}>
             {scoreLabel}: {score}
           </span>
-          <span>
+          <span className={hudBadge}>
             {timeLabel}: {timeLeft}s
           </span>
-          <span>
+          <span className={hudBadge}>
             {highLabel}: {highScore}
           </span>
         </div>
 
-        <div className="bug-arena" role="application" aria-label={title}>
+        <div
+          className="relative h-[340px] overflow-hidden rounded-[14px] border-[5px] border-ink bg-cream bg-halftone-soft shadow-[8px_8px_0_#d62828] max-[760px]:h-[280px] max-[420px]:h-[240px]"
+          role="application"
+          aria-label={title}
+        >
           {phase === "idle" && (
-            <div className="bug-overlay">
-              <p className="font-luckiest bug-overlay__bang">BUG SQUASHER</p>
-              <button type="button" className="bug-start" onClick={start}>
+            <div className="absolute inset-0 z-5 flex flex-col items-center justify-center gap-3.5 bg-[rgba(249,233,200,0.92)]">
+              <p className="m-0 -rotate-[3deg] font-stamp text-[clamp(28px,6vw,42px)] text-comic-red">
+                BUG SQUASHER
+              </p>
+              <button type="button" className={startBtn} onClick={start}>
                 {startLabel}
               </button>
             </div>
           )}
 
           {phase === "done" && (
-            <div className="bug-overlay">
-              <p className="font-luckiest bug-overlay__bang">{resultLabel}</p>
-              <p className="font-bangers bug-overlay__score">
+            <div className="absolute inset-0 z-5 flex flex-col items-center justify-center gap-3.5 bg-[rgba(249,233,200,0.92)]">
+              <p className="m-0 -rotate-[3deg] font-stamp text-[clamp(28px,6vw,42px)] text-comic-red">
+                {resultLabel}
+              </p>
+              <p className="m-0 font-display text-[28px] tracking-wide">
                 {scoreLabel}: {score}
               </p>
-              <button type="button" className="bug-start" onClick={start}>
+              <button type="button" className={startBtn} onClick={start}>
                 {againLabel}
               </button>
             </div>
@@ -174,7 +193,7 @@ export function BugSquasher({
             <button
               key={bug.id}
               type="button"
-              className="bug-critter"
+              className="absolute cursor-crosshair border-none bg-transparent p-1 text-[34px] leading-none animate-bug-wiggle drop-shadow-[2px_2px_0_#1a1a2e] transition-transform duration-[120ms] hover:scale-115 max-[760px]:min-h-12 max-[760px]:min-w-12 max-[760px]:text-[40px] [-translate-x-1/2] [-translate-y-1/2]"
               style={{ left: `${bug.x}%`, top: `${bug.y}%` }}
               onClick={() => squash(bug)}
               aria-label="bug"
@@ -185,7 +204,7 @@ export function BugSquasher({
 
           {pop && (
             <span
-              className="bug-pop font-luckiest"
+              className="pointer-events-none absolute z-4 -rotate-[8deg] animate-bang-in rounded-lg border-[3px] border-ink bg-comic-red px-2 py-0.5 font-stamp text-lg text-white [-translate-x-1/2] [-translate-y-1/2]"
               style={{ left: `${pop.x}%`, top: `${pop.y}%` }}
             >
               ZAP!
