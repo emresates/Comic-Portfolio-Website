@@ -14,10 +14,13 @@ export type CaseStudy = {
   panels: CaseStudyPanel[];
 };
 
+export type ProjectCategory = "ACTION" | "TECH" | "FUN";
+
 export type ProjectLinks = {
   slug: string;
   demoUrl: string;
   githubUrl: string;
+  category: ProjectCategory;
 };
 
 /** Shared across languages — index matches projects in content. */
@@ -26,31 +29,37 @@ export const PROJECT_LINKS: ProjectLinks[] = [
     slug: "hizli-market",
     demoUrl: "https://example.com/hizli-market",
     githubUrl: "https://github.com/emre/hizli-market",
+    category: "ACTION",
   },
   {
     slug: "panelix",
     demoUrl: "https://example.com/panelix",
     githubUrl: "https://github.com/emre/panelix",
+    category: "TECH",
   },
   {
     slug: "komik-ui",
     demoUrl: "https://example.com/komik-ui",
     githubUrl: "https://github.com/emre/komik-ui",
+    category: "TECH",
   },
   {
     slug: "rotaci",
     demoUrl: "https://example.com/rotaci",
     githubUrl: "https://github.com/emre/rotaci",
+    category: "ACTION",
   },
   {
     slug: "ses-dalgasi",
     demoUrl: "https://example.com/ses-dalgasi",
     githubUrl: "https://github.com/emre/ses-dalgasi",
+    category: "FUN",
   },
   {
     slug: "piksel-dovusu",
     demoUrl: "https://example.com/piksel-dovusu",
     githubUrl: "https://github.com/emre/piksel-dovusu",
+    category: "FUN",
   },
 ];
 

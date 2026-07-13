@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bangers, Comic_Neue, Luckiest_Guy } from "next/font/google";
+import { PageTurn } from "@/components/PageTurn";
 import "./globals.css";
 
 const bangers = Bangers({
@@ -45,7 +46,10 @@ export default function RootLayout({
       lang="tr"
       className={`${bangers.variable} ${luckiestGuy.variable} ${comicNeue.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <PageTurn />
+        {children}
+      </body>
     </html>
   );
 }

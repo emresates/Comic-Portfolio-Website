@@ -35,6 +35,8 @@
   --animate-speed-burst: speed-burst 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-hero-lines: hero-lines-in 0.45s ease both;
   --animate-bug-wiggle: bug-wiggle 0.35s ease-in-out infinite alternate;
+  --animate-page-turn-cover: page-turn-cover 0.42s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  --animate-page-turn-reveal: page-turn-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @layer base {
@@ -235,6 +237,28 @@
   }
   to {
     rotate: 8deg;
+  }
+}
+
+@keyframes page-turn-cover {
+  0% {
+    transform: translateX(-105%) skewX(-8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0) skewX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes page-turn-reveal {
+  0% {
+    transform: translateX(0) skewX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(105%) skewX(8deg);
+    opacity: 0;
   }
 }
 

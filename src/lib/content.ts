@@ -86,6 +86,21 @@ export type Content = {
   blogBang: string;
   blogBack: string;
   blogNav: string;
+  avatarHi: string;
+  filterAll: string;
+  filterAction: string;
+  filterTech: string;
+  filterFun: string;
+  formName: string;
+  formEmail: string;
+  formMessage: string;
+  formSend: string;
+  formSending: string;
+  formSuccess: string;
+  formError: string;
+  formNamePh: string;
+  formEmailPh: string;
+  formMessagePh: string;
 };
 
 const tr: Content = {
@@ -266,6 +281,21 @@ const tr: Content = {
   blogBang: "NEW ISSUE!",
   blogBack: "← TÜM SAYILAR",
   blogNav: "BLOG",
+  avatarHi: "Merhaba!",
+  filterAll: "HEPSİ",
+  filterAction: "ACTION",
+  filterTech: "TECH",
+  filterFun: "FUN",
+  formName: "İSİM",
+  formEmail: "E-POSTA",
+  formMessage: "MESAJ",
+  formSend: "SİNYAL GÖNDER",
+  formSending: "GÖNDERİLİYOR...",
+  formSuccess: "POW! Mesajın ulaştı. Hemen dönüyorum!",
+  formError: "ZAP! Bir şey ters gitti. Tekrar dene.",
+  formNamePh: "Adın / süper kahraman adın",
+  formEmailPh: "ornek@mail.com",
+  formMessagePh: "Projeden, işbirliğinden veya bir BAM! fikrinden bahset...",
 };
 
 const en: Content = {
@@ -446,6 +476,21 @@ const en: Content = {
   blogBang: "NEW ISSUE!",
   blogBack: "← ALL ISSUES",
   blogNav: "BLOG",
+  avatarHi: "Hi!",
+  filterAll: "ALL",
+  filterAction: "ACTION",
+  filterTech: "TECH",
+  filterFun: "FUN",
+  formName: "NAME",
+  formEmail: "EMAIL",
+  formMessage: "MESSAGE",
+  formSend: "SEND SIGNAL",
+  formSending: "SENDING...",
+  formSuccess: "POW! Message received. I'll be right back!",
+  formError: "ZAP! Something went wrong. Try again.",
+  formNamePh: "Your name / hero alias",
+  formEmailPh: "you@mail.com",
+  formMessagePh: "Tell me about a project, collab, or a BAM! idea...",
 };
 
 export const contentByLang: Record<Lang, Content> = { tr, en };

@@ -1,25 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CharacterAvatar } from "./CharacterAvatar";
 import { ProjectModal } from "./ProjectModal";
 import { BugSquasher, HIGH_SCORE_KEY } from "./BugSquasher";
 import { SiteNav } from "./SiteNav";
+import { ContactForm } from "./ContactForm";
 import {
   MODAL_BANGS,
   getContent,
   type Lang,
   type Project,
 } from "@/lib/content";
+import type { ProjectCategory } from "@/lib/projects";
 import { usePersistedLang } from "@/hooks/usePersistedLang";
-import {
-  PORTFOLIO_SECTION_IDS,
-  useScrollSpy,
-} from "@/hooks/useScrollSpy";
+import { PORTFOLIO_SECTION_IDS, useScrollSpy } from "@/hooks/useScrollSpy";
 import { useSfx } from "@/hooks/useSfx";
 
 type LoaderPhase = "in" | "out" | "done";
 type WipePhase = "idle" | "cover" | "reveal";
+type ProjectFilter = "ALL" | ProjectCategory;
 
 type ComicPortfolioProps = {
   defaultLang?: Lang;
@@ -41,9 +41,22 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const [loaderPhase, setLoaderPhase] = useState<LoaderPhase>("in");
   const [wipePhase, setWipePhase] = useState<WipePhase>("idle");
   const [highScore, setHighScore] = useState(0);
+  const [projectFilter, setProjectFilter] = useState<ProjectFilter>("ALL");
   const activeSection = useScrollSpy(PORTFOLIO_SECTION_IDS);
 
   const content = getContent(lang);
+
+  const filteredProjects = useMemo(() => {
+    if (projectFilter === "ALL") return content.projects;
+    return content.projects.filter((p) => p.category === projectFilter);
+  }, [content.projects, projectFilter]);
+
+  const filterButtons: { id: ProjectFilter; label: string }[] = [
+    { id: "ALL", label: content.filterAll },
+    { id: "ACTION", label: content.filterAction },
+    { id: "TECH", label: content.filterTech },
+    { id: "FUN", label: content.filterFun },
+  ];
 
   useEffect(() => {
     try {
@@ -150,7 +163,7 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           className="border-b-[6px] border-ink bg-halftone-soft bg-cream px-4 py-20"
         >
           <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-10">
-            <CharacterAvatar />
+            <CharacterAvatar hiText={content.avatarHi} />
             <div className="max-w-[560px] text-center">
               <div className="relative mb-[18px] inline-block rounded-2xl border-4 border-ink bg-white px-[22px] py-2.5 text-lg font-bold shadow-[5px_5px_0_#1a1a2e]">
                 {content.heroBubble}
@@ -233,11 +246,40 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
             >
               {content.projectsTitle}
             </h2>
-            <p className="mb-9 text-lg font-bold">{content.projectsSub}</p>
+            <p className="mb-6 text-lg font-bold">{content.projectsSub}</p>
+            <div
+              className="mb-8 flex flex-wrap gap-2"
+              role="group"
+              aria-label="Project filters"
+            >
+              {filterButtons.map((btn) => {
+                const active = projectFilter === btn.id;
+                return (
+                  <button
+                    key={btn.id}
+                    type="button"
+                    onClick={() => {
+                      play("click");
+                      setProjectFilter(btn.id);
+                    }}
+                    className={`rounded-xl border-[3px] border-ink px-3.5 py-2 font-display text-base tracking-wide shadow-[3px_3px_0_#1a1a2e] transition-[transform,background,color] ${
+                      active
+                        ? "bg-ink text-comic-yellow"
+                        : "bg-white text-ink hover:-translate-x-px hover:-translate-y-px hover:bg-comic-cream-hot"
+                    }`}
+                    aria-pressed={active}
+                  >
+                    {btn.label}
+                  </button>
+                );
+              })}
+            </div>
             <div className="grid grid-cols-1 gap-[26px] sm:grid-cols-2 lg:grid-cols-3">
-              {content.projects.map((pr, i) => (
+              {filteredProjects.map((pr) => {
+                const i = content.projects.findIndex((p) => p.slug === pr.slug);
+                return (
                 <button
-                  key={pr.title}
+                  key={pr.slug}
                   type="button"
                   className="group relative cursor-pointer overflow-hidden rounded-2xl border-4 border-ink bg-white text-left shadow-[6px_6px_0_#1a1a2e] transition-[transform,box-shadow] duration-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[9px_9px_0_#1a1a2e] focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-comic-yellow"
                   onClick={() => openProject(i)}
@@ -251,6 +293,9 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
                     className="relative flex h-[150px] items-center justify-center border-b-4 border-ink"
                     style={{ background: pr.bg }}
                   >
+                    <span className="absolute bottom-2 left-2.5 z-10 rounded-[20px] border-2 border-ink bg-white px-2.5 py-0.5 font-display text-xs tracking-wide text-ink">
+                      {pr.category}
+                    </span>
                     <span className="font-display text-[54px] text-white text-stroke-ink [text-shadow:4px_4px_0_rgba(26,26,46,0.5)]">
                       {pr.emoji}
                     </span>
@@ -277,8 +322,14 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
                     </div>
                   </div>
                 </button>
-              ))}
+              );
+              })}
             </div>
+            {filteredProjects.length === 0 && (
+              <p className="rounded-xl border-4 border-ink bg-white p-6 text-center font-stamp text-xl text-ink shadow-[5px_5px_0_#1a1a2e]">
+                ZAP! {lang === "tr" ? "Bu kategoride proje yok." : "No projects in this category."}
+              </p>
+            )}
           </div>
         </section>
 
@@ -390,7 +441,21 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
             <p className="mb-8 text-lg font-bold text-white">
               {content.contactText}
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <ContactForm
+              labels={{
+                name: content.formName,
+                email: content.formEmail,
+                message: content.formMessage,
+                send: content.formSend,
+                sending: content.formSending,
+                success: content.formSuccess,
+                error: content.formError,
+                namePh: content.formNamePh,
+                emailPh: content.formEmailPh,
+                messagePh: content.formMessagePh,
+              }}
+            />
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="mailto:emre@example.com"
                 className={`${contactBtnBase} bg-white text-comic-red hover:bg-comic-cream-hot hover:text-comic-red-dark`}
@@ -415,11 +480,6 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
 
         <footer className="bg-ink p-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
           {content.footerText}
-          {highScore > 0 && (
-            <span className="mt-2 block text-white">
-              🐛 {content.gameHigh}: {highScore}
-            </span>
-          )}
         </footer>
       </div>
     </div>

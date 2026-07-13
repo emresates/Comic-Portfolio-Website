@@ -1,6 +1,34 @@
-export function CharacterAvatar() {
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSfx } from "@/hooks/useSfx";
+
+type CharacterAvatarProps = {
+  hiText?: string;
+};
+
+export function CharacterAvatar({ hiText = "Hi!" }: CharacterAvatarProps) {
+  const { play } = useSfx();
+  const [showHi, setShowHi] = useState(false);
+
+  useEffect(() => {
+    if (!showHi) return;
+    const t = window.setTimeout(() => setShowHi(false), 2200);
+    return () => window.clearTimeout(t);
+  }, [showHi]);
+
+  const onClick = () => {
+    play("thwip");
+    setShowHi(true);
+  };
+
   return (
-    <div className="relative mx-3 my-3 animate-float-bob max-[860px]:mx-4 max-[860px]:mb-5 max-[860px]:origin-top max-[860px]:scale-[0.82] max-[540px]:scale-[0.72]">
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={hiText}
+      className="relative mx-3 my-3 cursor-pointer border-0 bg-transparent p-0 animate-float-bob max-[860px]:mx-4 max-[860px]:mb-5 max-[860px]:origin-top max-[860px]:scale-[0.82] max-[540px]:scale-[0.72]"
+    >
       <div className="relative flex h-[260px] w-[260px] items-end justify-center overflow-hidden rounded-full border-[5px] border-ink bg-comic-yellow shadow-[8px_8px_0_#1a1a2e]">
         <div className="absolute -inset-[60px] animate-burst-spin bg-sunburst" />
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(214,40,40,0.22)_1.8px,transparent_1.8px)_0_0/14px_14px]" />
@@ -34,12 +62,28 @@ export function CharacterAvatar() {
           <div className="absolute left-[124px] top-[100px] h-2 w-3.5 rounded-full bg-[rgba(214,40,40,0.35)]" />
         </div>
       </div>
-      <div className="absolute -right-[30px] -top-[18px] rotate-[8deg] animate-wiggle rounded-xl border-4 border-ink bg-comic-red px-3.5 py-2 font-stamp text-[26px] text-white shadow-[4px_4px_0_#1a1a2e] max-[860px]:-right-2 max-[860px]:-top-2 max-[860px]:px-2.5 max-[860px]:py-1.5 max-[860px]:text-xl">
+      <div className="pointer-events-none absolute -right-[30px] -top-[18px] rotate-[8deg] animate-wiggle rounded-xl border-4 border-ink bg-comic-red px-3.5 py-2 font-stamp text-[26px] text-white shadow-[4px_4px_0_#1a1a2e] max-[860px]:-right-2 max-[860px]:-top-2 max-[860px]:px-2.5 max-[860px]:py-1.5 max-[860px]:text-xl">
         POW!
       </div>
-      <div className="absolute -bottom-1.5 -left-[34px] -rotate-[8deg] animate-wiggle-delay rounded-[10px] border-4 border-ink bg-comic-teal px-3 py-1.5 font-stamp text-lg text-ink shadow-[4px_4px_0_#1a1a2e] max-[860px]:bottom-0 max-[860px]:-left-2 max-[860px]:text-sm">
+      <div className="pointer-events-none absolute -bottom-1.5 -left-[34px] -rotate-[8deg] animate-wiggle-delay rounded-[10px] border-4 border-ink bg-comic-teal px-3 py-1.5 font-stamp text-lg text-ink shadow-[4px_4px_0_#1a1a2e] max-[860px]:bottom-0 max-[860px]:-left-2 max-[860px]:text-sm">
         {"</kod>"}
       </div>
-    </div>
+      {showHi && (
+        <div
+          className="absolute -right-2 top-[40%] z-10 animate-bang-in rounded-2xl border-4 border-ink bg-white px-4 py-2 font-stamp text-xl text-comic-red shadow-[4px_4px_0_#1a1a2e]"
+          aria-live="polite"
+        >
+          {hiText}
+          <span
+            className="absolute -left-3 top-1/2 size-0 -translate-y-1/2 border-y-8 border-r-12 border-y-transparent border-r-ink"
+            aria-hidden
+          />
+          <span
+            className="absolute -left-[7px] top-1/2 size-0 -translate-y-1/2 border-y-[6px] border-r-[9px] border-y-transparent border-r-white"
+            aria-hidden
+          />
+        </div>
+      )}
+    </button>
   );
 }
