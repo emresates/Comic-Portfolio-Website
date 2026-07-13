@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { InfiniteMarquee } from "./InfiniteMarquee";
 import { CharacterAvatar } from "./CharacterAvatar";
 import { ProjectModal } from "./ProjectModal";
 import { BugSquasher, HIGH_SCORE_KEY } from "./BugSquasher";
@@ -103,8 +104,6 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
   const modalBang =
     modalIndex >= 0 ? MODAL_BANGS[modalIndex % MODAL_BANGS.length] : "";
 
-  const marqueeWords = [...content.marqueeWords, ...content.marqueeWords];
-
   return (
     <div className="min-h-screen overflow-x-hidden bg-cream font-body text-ink">
       {wipePhase !== "idle" && (
@@ -195,18 +194,7 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
           </div>
         </header>
 
-        <div className="overflow-hidden border-b-[6px] border-ink bg-ink py-2.5">
-          <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
-            {marqueeWords.map((w, i) => (
-              <span
-                key={`${w}-${i}`}
-                className="font-display text-[22px] tracking-[3px] text-comic-yellow"
-              >
-                {w} ✦
-              </span>
-            ))}
-          </div>
-        </div>
+        <InfiniteMarquee words={content.marqueeWords} duration={28} />
 
         <section id="hakkimda" className="mx-auto max-w-[1100px] px-4 py-20">
           <h2
@@ -358,19 +346,22 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
             {content.skills.map((sk) => (
               <div
                 key={sk.name}
-                className="rounded-xl border-4 border-ink bg-white p-5 shadow-[4px_4px_0_#1a1a2e]"
+                className="group relative rounded-xl border-4 border-ink bg-white p-5 shadow-[4px_4px_0_#1a1a2e] transition-[transform,box-shadow,background] duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:rotate-1 hover:bg-comic-cream-hot hover:shadow-[8px_8px_0_#1a1a2e]"
               >
+                <span className="pointer-events-none absolute -right-2 -top-3 z-10 scale-75 -rotate-[12deg] rounded-lg border-[3px] border-ink bg-comic-red px-2 py-0.5 font-stamp text-sm text-white opacity-0 shadow-[2px_2px_0_#1a1a2e] transition-[opacity,transform] duration-200 group-hover:scale-100 group-hover:opacity-100">
+                  POW!
+                </span>
                 <div className="mb-2.5 flex items-center justify-between">
                   <span className="font-display text-[21px] tracking-wide">
                     {sk.name}
                   </span>
-                  <span className="font-stamp text-[15px] text-comic-red">
+                  <span className="font-stamp text-[15px] text-comic-red transition-transform duration-200 group-hover:scale-110">
                     {sk.level}
                   </span>
                 </div>
                 <div className="h-[18px] overflow-hidden rounded-xl border-[3px] border-ink bg-cream">
                   <div
-                    className="h-full rounded-lg bg-skill-stripes transition-[width] duration-500"
+                    className="h-full rounded-lg bg-skill-stripes transition-[width,filter] duration-500 group-hover:brightness-110"
                     style={{ width: sk.pct }}
                   />
                 </div>
@@ -389,15 +380,23 @@ export function ComicPortfolio({ defaultLang = "tr" }: ComicPortfolioProps) {
             >
               {content.timelineTitle}
             </h2>
-            <div className="relative flex flex-col border-l-[5px] border-dashed border-ink pl-[34px]">
-              {content.timeline.map((tl) => (
-                <div key={tl.title} className="relative pb-9">
+            <div className="relative flex flex-col pl-[34px]">
+              {/* Dashed timeline from first dot to last */}
+              <div
+                className="absolute bottom-[15px] left-[11px] top-[15px] w-0 border-l-[5px] border-dashed border-ink"
+                aria-hidden
+              />
+              {content.timeline.map((tl, index) => (
+                <div
+                  key={tl.title}
+                  className={`relative ${index === content.timeline.length - 1 ? "pb-0" : "pb-9"}`}
+                >
                   <div
-                    className="absolute -left-[52px] top-0 size-[30px] rounded-full border-4 border-ink shadow-[3px_3px_0_#1a1a2e]"
+                    className="absolute -left-[52px] top-0 z-[1] size-[30px] rounded-full border-4 border-ink shadow-[3px_3px_0_#1a1a2e]"
                     style={{ background: tl.dotBg }}
                   />
                   <div
-                    className={`${comicCardBase} p-5`}
+                    className={`${comicCardBase} p-5 transition-transform duration-150 hover:rotate-0 hover:translate-x-1.5`}
                     style={{ transform: `rotate(${tl.rot}deg)` }}
                   >
                     <span className="inline-block rounded-[20px] bg-ink px-3 py-[3px] font-display text-base tracking-wide text-comic-yellow">

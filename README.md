@@ -30,5 +30,3 @@ npm run dev
 npm run build
 npm start
 ```
-
-Orijinal dosyalar `_legacy/` klasöründe saklanır.

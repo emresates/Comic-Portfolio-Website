@@ -121,6 +121,7 @@ const tr: Content = {
   ],
   marqueeWords: [
     "REACT",
+    "Next.js",
     "TYPESCRIPT",
     "CSS SİHİRBAZI",
     "POW!",
@@ -128,6 +129,14 @@ const tr: Content = {
     "ANİMASYON",
     "BAM!",
     "PERFORMANS",
+    "WebSocket",
+    "GitHub",
+    "HTML",
+    "JS",
+    "Kapow!",
+    "CSS",
+    "Node.js",
+    "Tailwind CSS",
   ],
   aboutTitle: "HAKKIMDA",
   aboutPanels: [
@@ -264,12 +273,13 @@ const tr: Content = {
   contactTitle: "BİRLİKTE ÇALIŞALIM",
   contactText:
     "Bir proje mi var? Süper kahraman takviyesi mi lazım? Sinyal gönder, hemen geliyorum!",
-  footerText: "© 2026 EMRE — BU SAYFA %100 EL ÇİZİMİ KOD İLE YAPILMIŞTIR ✦",
+  footerText: "© 2026 EMRE Seyfullah Ateş",
   loaderText: "YÜKLENİYOR...",
   soundOnLabel: "SES AÇIK",
   soundOffLabel: "SESSİZ",
   gameTitle: "BUG SQUASHER!",
-  gameSub: "10 saniyede mümkün olduğunca çok bug ez! Yüksek skor kaydedilir. 💥",
+  gameSub:
+    "10 saniyede mümkün olduğunca çok bug ez! Yüksek skor kaydedilir. 💥",
   gameStart: "BAŞLA →",
   gameAgain: "TEKRAR!",
   gameScore: "SKOR",
@@ -464,7 +474,8 @@ const en: Content = {
   soundOnLabel: "SFX ON",
   soundOffLabel: "MUTED",
   gameTitle: "BUG SQUASHER!",
-  gameSub: "Squash as many bugs as you can in 10 seconds! High score is saved. 💥",
+  gameSub:
+    "Squash as many bugs as you can in 10 seconds! High score is saved. 💥",
   gameStart: "START →",
   gameAgain: "AGAIN!",
   gameScore: "SCORE",
@@ -495,7 +506,14 @@ const en: Content = {
 
 export const contentByLang: Record<Lang, Content> = { tr, en };
 
-export const MODAL_BANGS = ["KAPOW!", "ZOOM!", "WHAM!", "VROOM!", "BOOM!", "ZAP!"];
+export const MODAL_BANGS = [
+  "KAPOW!",
+  "ZOOM!",
+  "WHAM!",
+  "VROOM!",
+  "BOOM!",
+  "ZAP!",
+];
 
 export type ResolvedContent = Omit<Content, "projects"> & {
   projects: Project[];
