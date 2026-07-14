@@ -48,7 +48,7 @@ export function BlogPostView({ post }: BlogPostViewProps) {
           <div className="text-[72px] drop-shadow-[4px_4px_0_#1a1a2e]">
             {localized.emoji}
           </div>
-          <p className="my-2 inline-block -rotate-[4deg] rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3 py-1 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
+          <p className="my-2 inline-block rotate-[-4deg] rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3 py-1 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
             {localized.bang}
           </p>
           <h1 className="my-2 font-display text-[clamp(36px,7vw,64px)] tracking-[2px] text-comic-yellow text-stroke-ink [text-shadow:4px_4px_0_#1a1a2e]">

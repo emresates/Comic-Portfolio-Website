@@ -29,7 +29,7 @@ export function BlogIndex() {
       />
 
       <header className="border-b-[6px] border-ink bg-comic-teal bg-halftone-red px-6 py-16 text-center max-[760px]:px-4 max-[760px]:py-12">
-        <p className="m-0 mb-3 inline-block -rotate-[3deg] rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3.5 py-1.5 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
+        <p className="m-0 mb-3 inline-block -rotate-3 rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3.5 py-1.5 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
           {tBlog("bang")}
         </p>
         <h1 className="m-0 mb-2.5 font-display text-[clamp(42px,8vw,72px)] tracking-[3px] text-comic-yellow text-stroke-ink-lg [text-shadow:5px_5px_0_#1a1a2e]">
@@ -46,7 +46,7 @@ export function BlogIndex() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="relative flex min-h-[340px] flex-col overflow-hidden rounded-lg border-[5px] border-ink p-[18px] text-white no-underline shadow-[8px_8px_0_#1a1a2e] transition-[transform,box-shadow] duration-[120ms] hover:-translate-x-[3px] hover:-translate-y-[3px] hover:-rotate-1 hover:text-white hover:shadow-[12px_12px_0_#1a1a2e] max-[760px]:min-h-[300px]"
+              className="relative flex min-h-[340px] flex-col overflow-hidden rounded-lg border-[5px] border-ink p-[18px] text-white no-underline shadow-[8px_8px_0_#1a1a2e] transition-[transform,box-shadow] duration-120ms hover:translate-x-[-3px] hover:translate-y-[-3px] hover:-rotate-1 hover:text-white hover:shadow-[12px_12px_0_#1a1a2e] max-[760px]:min-h-[300px]"
               style={{ background: post.coverBg }}
             >
               <span className="self-start rounded-md bg-ink px-2.5 py-0.5 font-display text-sm tracking-wide text-comic-yellow">

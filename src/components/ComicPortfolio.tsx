@@ -92,7 +92,7 @@ export function ComicPortfolio() {
     <div className="min-h-screen overflow-x-hidden bg-cream font-body text-ink">
       {wipePhase !== "idle" && (
         <div
-          className={`fixed inset-0 z-[150] flex items-center justify-center border-x-8 border-ink bg-dots-loader bg-comic-red ${
+          className={`fixed inset-0 z-150 flex items-center justify-center border-x-8 border-ink bg-dots-loader bg-comic-red ${
             wipePhase === "cover" ? "animate-wipe-in" : "animate-wipe-out"
           }`}
           aria-hidden
@@ -105,15 +105,15 @@ export function ComicPortfolio() {
 
       {loaderPhase !== "done" && (
         <div
-          className={`fixed inset-0 z-[200] flex flex-col items-center justify-center gap-[18px] bg-dots-loader bg-comic-yellow ${
+          className={`fixed inset-0 z-200 flex flex-col items-center justify-center gap-[18px] bg-dots-loader bg-comic-yellow ${
             loaderPhase === "out" ? "animate-loader-out" : ""
           }`}
           aria-hidden
         >
-          <div className="animate-loader-pop -rotate-[4deg] font-display text-[clamp(64px,14vw,140px)] tracking-[4px] text-comic-red text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
+          <div className="animate-loader-pop -rotate-4 font-display text-[clamp(64px,14vw,140px)] tracking-[4px] text-comic-red text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
             POW!
           </div>
-          <div className="rotate-[2deg] rounded-xl border-4 border-ink bg-white px-5 py-2 font-stamp text-xl text-ink shadow-[4px_4px_0_#1a1a2e]">
+          <div className="rotate-2 rounded-xl border-4 border-ink bg-white px-5 py-2 font-stamp text-xl text-ink shadow-[4px_4px_0_#1a1a2e]">
             {tCommon("loaderText")}
           </div>
         </div>

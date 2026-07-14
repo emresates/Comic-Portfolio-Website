@@ -13,8 +13,7 @@ const speechBubbleBase =
 const speechBubbleRight =
   "before:left-auto before:right-[30px] before:border-l-4 before:border-r-[10px] after:left-auto after:right-7 after:border-l-[6px] after:border-r-[12px]";
 
-const speechBubbleWide =
-  "m-0 before:left-10 after:left-10";
+const speechBubbleWide = "m-0 before:left-10 after:left-10";
 
 export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
   const [problem, solution, result] = panels;
@@ -22,10 +21,10 @@ export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
   return (
     <section className="mx-auto max-w-[960px] px-5 py-12 pb-16 max-[860px]:px-3 max-[860px]:py-8 max-[860px]:pb-12">
       <div className="mb-[18px] flex flex-wrap items-center justify-between gap-3">
-        <h2 className="m-0 rotate-[-1deg] font-display text-[clamp(32px,5vw,52px)] tracking-[3px] text-comic-red text-stroke-ink [text-shadow:4px_4px_0_#ffd23f]">
+        <h2 className="m-0 -rotate-1 font-display text-[clamp(32px,5vw,52px)] tracking-[3px] text-comic-red text-stroke-ink [text-shadow:4px_4px_0_#ffd23f]">
           {stripTitle}
         </h2>
-        <span className="rotate-[3deg] rounded-[10px] border-[3px] border-ink bg-comic-red px-3.5 py-1.5 font-stamp text-[22px] text-white shadow-[3px_3px_0_#1a1a2e]">
+        <span className="rotate-3 rounded-[10px] border-[3px] border-ink bg-comic-red px-3.5 py-1.5 font-stamp text-[22px] text-white shadow-[3px_3px_0_#1a1a2e]">
           {bang}
         </span>
       </div>
@@ -39,7 +38,7 @@ export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
             className="relative flex min-h-[280px] flex-col overflow-hidden border-4 border-ink bg-[linear-gradient(160deg,#ff9f5a_0%,#f9e9c8_55%)] max-[860px]:min-h-[240px]"
             role="listitem"
           >
-            <div className="absolute left-2.5 top-2.5 z-[3] inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
+            <div className="absolute left-2.5 top-2.5 z-3 inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
               <span className="grid size-[22px] place-items-center rounded-full bg-comic-yellow text-[13px] text-ink">
                 1
               </span>
@@ -62,7 +61,7 @@ export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
             className="relative flex min-h-[280px] flex-col overflow-hidden border-4 border-ink bg-[linear-gradient(200deg,#ffd23f_0%,#f9e9c8_55%)] max-[860px]:min-h-[240px]"
             role="listitem"
           >
-            <div className="absolute left-2.5 top-2.5 z-[3] inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
+            <div className="absolute left-2.5 top-2.5 z-3 inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
               <span className="grid size-[22px] place-items-center rounded-full bg-comic-yellow text-[13px] text-ink">
                 2
               </span>
@@ -92,7 +91,7 @@ export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
             className="relative col-span-2 flex min-h-[260px] flex-col overflow-hidden border-4 border-ink bg-[linear-gradient(180deg,#4cb5ae_0%,#f9e9c8_48%,#ffd23f_100%)] max-[760px]:col-span-1"
             role="listitem"
           >
-            <div className="absolute left-2.5 top-2.5 z-[3] inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
+            <div className="absolute left-2.5 top-2.5 z-3 inline-flex items-center gap-2 border-[3px] border-ink bg-ink py-1 pl-1.5 pr-3 font-display text-sm tracking-wider text-comic-yellow shadow-[3px_3px_0_rgba(26,26,46,0.35)]">
               <span className="grid size-[22px] place-items-center rounded-full bg-comic-yellow text-[13px] text-ink">
                 3
               </span>
@@ -109,7 +108,7 @@ export function ComicStrip({ panels, bang, stripTitle }: ComicStripProps) {
                 </p>
               </div>
             </div>
-            <span className="absolute right-4 top-12 z-[4] rotate-[8deg] animate-bang-in rounded-xl border-4 border-ink bg-comic-yellow px-3.5 py-1.5 font-stamp text-[clamp(28px,5vw,42px)] text-comic-red shadow-[4px_4px_0_#1a1a2e] max-[760px]:right-3 max-[760px]:top-3 max-[760px]:text-[22px]">
+            <span className="absolute right-4 top-12 z-4 rotate-[-8deg] animate-bang-in rounded-xl border-4 border-ink bg-comic-yellow px-3.5 py-1.5 font-stamp text-[clamp(28px,5vw,42px)] text-comic-red shadow-[4px_4px_0_#1a1a2e] max-[760px]:right-3 max-[760px]:top-3 max-[760px]:text-[22px]">
               {bang}
             </span>
           </article>

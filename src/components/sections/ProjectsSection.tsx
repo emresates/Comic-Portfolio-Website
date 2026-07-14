@@ -99,7 +99,7 @@ export function ProjectsSection({ play }: ProjectsSectionProps) {
                   onMouseEnter={() => play("thwip")}
                   onFocus={() => play("thwip")}
                 >
-                  <span className="absolute left-1 top-2 z-10 -rotate-[8deg] rounded-[10px] border-2 border-ink bg-comic-yellow px-2.5 py-0.5 font-display text-[15px] tracking-wide text-comic-red opacity-0 shadow-[2px_2px_0_#1a1a2e] transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="absolute left-1 top-2 z-10 rotate-[-8deg] rounded-[10px] border-2 border-ink bg-comic-yellow px-2.5 py-0.5 font-display text-[15px] tracking-wide text-comic-red opacity-0 shadow-[2px_2px_0_#1a1a2e] transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100">
                     {MODAL_BANGS[i % MODAL_BANGS.length]}
                   </span>
                   <div

@@ -31,8 +31,6 @@ export function ProjectModal({
   const panelRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   const onCloseSoundRef = useRef(onCloseSound);
-  onCloseRef.current = onClose;
-  onCloseSoundRef.current = onCloseSound;
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -78,18 +76,21 @@ export function ProjectModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex animate-modal-fade items-center justify-center bg-[rgba(26,26,46,0.78)] p-6 max-[860px]:p-4"
+      className="fixed inset-0 z-100 flex animate-modal-fade items-center justify-center bg-[rgba(26,26,46,0.78)] p-6 max-[860px]:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       onClick={handleClose}
     >
-      <div className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden" aria-hidden>
+      <div
+        className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden"
+        aria-hidden
+      >
         <div className="size-[min(90vw,720px)] animate-speed-burst rounded-full bg-speed-lines max-[860px]:size-[140vw]" />
       </div>
       <div
         ref={panelRef}
-        className="relative z-[1] w-full max-w-[560px] animate-pow-pop overflow-hidden rounded-[18px] border-[5px] border-ink bg-white p-0 shadow-[12px_12px_0_#1a1a2e] max-[860px]:m-auto max-[860px]:max-h-[min(85dvh,900px)] max-[860px]:overflow-y-auto max-[860px]:rounded-2xl"
+        className="relative z-1 w-full max-w-[560px] animate-pow-pop overflow-hidden rounded-[18px] border-[5px] border-ink bg-white p-0 shadow-[12px_12px_0_#1a1a2e] max-[860px]:m-auto max-[860px]:max-h-[min(85dvh,900px)] max-[860px]:overflow-y-auto max-[860px]:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div
@@ -97,20 +98,20 @@ export function ProjectModal({
           style={{ background: project.bg }}
         >
           <div
-            className="absolute -inset-[30%] animate-hero-lines [background:repeating-linear-gradient(-18deg,transparent,transparent_10px,rgba(26,26,46,0.12)_10px,rgba(26,26,46,0.12)_14px)]"
+            className="absolute inset-[-30%] animate-hero-lines [background:repeating-linear-gradient(-18deg,transparent,transparent_10px,rgba(26,26,46,0.12)_10px,rgba(26,26,46,0.12)_14px)]"
             aria-hidden
           />
-          <span className="relative z-[1] font-display text-[64px] text-white text-stroke-ink drop-shadow-[4px_4px_0_rgba(26,26,46,0.35)]">
+          <span className="relative z-1 font-display text-[64px] text-white text-stroke-ink drop-shadow-[4px_4px_0_rgba(26,26,46,0.35)]">
             {project.emoji}
           </span>
-          <span className="absolute bottom-3 right-[18px] z-[2] -rotate-[8deg] animate-bang-in rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3 py-1 font-stamp text-[22px] text-comic-red shadow-[3px_3px_0_#1a1a2e] max-[860px]:bottom-2.5 max-[860px]:right-3 max-[860px]:text-base">
+          <span className="absolute bottom-3 right-[18px] z-2 rotate-[-8deg] animate-bang-in rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3 py-1 font-stamp text-[22px] text-comic-red shadow-[3px_3px_0_#1a1a2e] max-[860px]:bottom-2.5 max-[860px]:right-3 max-[860px]:text-base">
             {bang}
           </span>
         </div>
         <button
           ref={closeRef}
           type="button"
-          className="absolute right-3 top-3 z-[3] size-[42px] cursor-pointer rounded-full border-[3px] border-ink bg-comic-red font-display text-xl text-white shadow-[3px_3px_0_#1a1a2e] transition-[transform,background] duration-150 hover:rotate-90 hover:bg-comic-red-dark hover:text-white focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-comic-yellow"
+          className="absolute right-3 top-3 z-3 size-[42px] cursor-pointer rounded-full border-[3px] border-ink bg-comic-red font-display text-xl text-white shadow-[3px_3px_0_#1a1a2e] transition-[transform,background] duration-150 hover:rotate-90 hover:bg-comic-red-dark hover:text-white focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-comic-yellow"
           onClick={handleClose}
           aria-label="Close"
         >

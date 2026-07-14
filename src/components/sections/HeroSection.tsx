@@ -19,11 +19,11 @@ export function HeroSection() {
           <div className="relative mb-[18px] inline-block rounded-2xl border-4 border-ink bg-white px-[22px] py-2.5 text-lg font-bold shadow-[5px_5px_0_#1a1a2e]">
             {tHero("bubble", { name: siteConfig.brand })}
             <div
-              className="absolute -bottom-4 left-10 size-0 border-t-16 border-r-1 border-l-[14px] border-t-ink border-r-transparent border-l-transparent"
+              className="absolute -bottom-4 left-10 size-0 border-t-16 border-r border-l-[14px] border-t-ink border-r-transparent border-l-transparent"
               aria-hidden
             />
             <div
-              className="absolute bottom-[-11px] left-[43px] size-0 border-t-12 border-r-1 border-l-[10px] border-t-white border-r-transparent border-l-transparent"
+              className="absolute bottom-[-11px] left-[43px] size-0 border-t-12 border-r border-l-[10px] border-t-white border-r-transparent border-l-transparent"
               aria-hidden
             />
           </div>

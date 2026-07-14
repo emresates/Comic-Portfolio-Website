@@ -90,7 +90,7 @@ export function PageTurn() {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-[180] flex items-center justify-center overflow-hidden ${
+      className={`pointer-events-none fixed inset-0 z-180 flex items-center justify-center overflow-hidden ${
         phase === "cover"
           ? "animate-page-turn-cover"
           : "animate-page-turn-reveal"
@@ -100,7 +100,7 @@ export function PageTurn() {
       <div className="absolute inset-0 bg-dots-loader bg-comic-yellow" />
       <div className="absolute inset-y-0 left-0 w-3 bg-ink" />
       <div className="absolute inset-y-0 right-0 w-3 bg-ink" />
-      <div className="relative z-10 -rotate-[4deg] animate-bang-in font-display text-[clamp(48px,10vw,100px)] tracking-[4px] text-comic-red text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
+      <div className="relative z-10 rotate-[-4deg] animate-bang-in font-display text-[clamp(48px,10vw,100px)] tracking-[4px] text-comic-red text-stroke-ink-xl [text-shadow:8px_8px_0_#1a1a2e]">
         FLIP!
       </div>
     </div>
