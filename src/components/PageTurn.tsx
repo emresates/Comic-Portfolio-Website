@@ -14,7 +14,6 @@ export function PageTurn() {
   const navigating = useRef(false);
   const firstMount = useRef(true);
   const phaseRef = useRef<Phase>("idle");
-  phaseRef.current = phase;
 
   useEffect(() => {
     if (firstMount.current) {
@@ -47,7 +46,10 @@ export function PageTurn() {
       ) {
         return;
       }
-      if (el.getAttribute("target") === "_blank" || el.hasAttribute("download")) {
+      if (
+        el.getAttribute("target") === "_blank" ||
+        el.hasAttribute("download")
+      ) {
         return;
       }
 
@@ -89,7 +91,9 @@ export function PageTurn() {
   return (
     <div
       className={`pointer-events-none fixed inset-0 z-[180] flex items-center justify-center overflow-hidden ${
-        phase === "cover" ? "animate-page-turn-cover" : "animate-page-turn-reveal"
+        phase === "cover"
+          ? "animate-page-turn-cover"
+          : "animate-page-turn-reveal"
       }`}
       aria-hidden
     >

@@ -1,34 +1,37 @@
 "use client";
 
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
-import { getContent, type Lang } from "@/lib/content";
-import { usePersistedLang } from "@/hooks/usePersistedLang";
+import type { Locale } from "@/i18n/routing";
+import { useToggleLocale } from "@/hooks/useToggleLocale";
 import { SiteNav } from "./SiteNav";
 
 type BlogPostViewProps = {
   post: BlogPost;
-  defaultLang?: Lang;
 };
 
 const storyLinkBtn =
   "inline-block rounded-[10px] border-[3px] border-ink bg-comic-yellow px-4 py-2 font-display text-base tracking-wide text-ink no-underline shadow-[3px_3px_0_#1a1a2e] transition-[transform,box-shadow,background,color] duration-[120ms] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-white hover:text-comic-red hover:shadow-[5px_5px_0_#1a1a2e]";
 
-export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
-  const { lang, setLang } = usePersistedLang(defaultLang);
-  const content = getContent(lang);
+export function BlogPostView({ post }: BlogPostViewProps) {
+  const locale = useLocale() as Locale;
+  const toggleLocale = useToggleLocale();
+  const tCommon = useTranslations("common");
+  const tBlog = useTranslations("blog");
+  const tProjects = useTranslations("projects");
   const localized =
-    getBlogPosts(lang).find((p) => p.issue === post.issue) ?? post;
+    getBlogPosts(locale).find((p) => p.issue === post.issue) ?? post;
 
   return (
     <div className="min-h-screen bg-cream font-body text-ink">
       <SiteNav
-        brandHref={`/?lang=${lang}`}
-        langButton={content.langButton}
-        onToggleLang={() => setLang((p) => (p === "tr" ? "en" : "tr"))}
+        brandHref="/"
+        langButton={tCommon("langButton")}
+        onToggleLang={() => toggleLocale()}
         items={[
-          { label: content.blogBack, href: `/blog?lang=${lang}` },
-          { label: content.backBtn, href: `/?lang=${lang}` },
+          { label: tBlog("back"), href: "/blog" },
+          { label: tProjects("backBtn"), href: "/" },
         ]}
       />
 
@@ -39,7 +42,7 @@ export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
         <div className="pointer-events-none absolute inset-0 bg-halftone-dark" aria-hidden />
         <div className="relative z-1">
           <span className="mb-3 inline-block rounded-md bg-ink px-3 py-1 font-display tracking-wide text-comic-yellow">
-            {content.issueLabel} #{localized.issue}
+            {tProjects("issueLabel")} #{localized.issue}
           </span>
           <div className="text-[72px] drop-shadow-[4px_4px_0_#1a1a2e]">
             {localized.emoji}
@@ -75,13 +78,13 @@ export function BlogPostView({ post, defaultLang = "tr" }: BlogPostViewProps) {
             </span>
           ))}
         </div>
-        <Link href={`/blog?lang=${lang}`} className={storyLinkBtn}>
-          {content.blogBack}
+        <Link href="/blog" className={storyLinkBtn}>
+          {tBlog("back")}
         </Link>
       </article>
 
       <footer className="bg-ink px-5 py-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
-        {content.footerText}
+        {tCommon("footerText")}
       </footer>
     </div>
   );

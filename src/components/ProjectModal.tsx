@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef } from "react";
-import type { Lang, Project } from "@/lib/content";
+import { Link } from "@/i18n/navigation";
+import type { Project } from "@/lib/content";
 
 type ProjectModalProps = {
   project: Project;
   bang: string;
-  lang: Lang;
   labels: {
     demoBtn: string;
     githubBtn: string;
@@ -23,7 +22,6 @@ const linkBase =
 export function ProjectModal({
   project,
   bang,
-  lang,
   labels,
   onClose,
   onCloseSound,
@@ -156,7 +154,7 @@ export function ProjectModal({
               {labels.githubBtn}
             </a>
             <Link
-              href={`/projects/${project.slug}?lang=${lang}`}
+              href={`/projects/${project.slug}`}
               className={`${linkBase} bg-comic-yellow text-ink shadow-[3px_3px_0_#1a1a2e] hover:bg-white hover:text-comic-red hover:shadow-[5px_5px_0_#1a1a2e]`}
               onClick={handleClose}
             >

@@ -1,41 +1,41 @@
 "use client";
 
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { getBlogPosts } from "@/lib/blog";
-import { getContent, type Lang } from "@/lib/content";
-import { usePersistedLang } from "@/hooks/usePersistedLang";
+import type { Locale } from "@/i18n/routing";
+import { useToggleLocale } from "@/hooks/useToggleLocale";
 import { SiteNav } from "./SiteNav";
 
-type BlogIndexProps = {
-  defaultLang?: Lang;
-};
-
-export function BlogIndex({ defaultLang = "tr" }: BlogIndexProps) {
-  const { lang, setLang } = usePersistedLang(defaultLang);
-  const content = getContent(lang);
-  const posts = getBlogPosts(lang);
+export function BlogIndex() {
+  const locale = useLocale() as Locale;
+  const toggleLocale = useToggleLocale();
+  const tCommon = useTranslations("common");
+  const tBlog = useTranslations("blog");
+  const tProjects = useTranslations("projects");
+  const posts = getBlogPosts(locale);
 
   return (
     <div className="min-h-screen bg-cream font-body text-ink">
       <SiteNav
-        brandHref={`/?lang=${lang}`}
-        langButton={content.langButton}
-        onToggleLang={() => setLang((p) => (p === "tr" ? "en" : "tr"))}
+        brandHref="/"
+        langButton={tCommon("langButton")}
+        onToggleLang={() => toggleLocale()}
         items={[
-          { label: content.backBtn, href: `/?lang=${lang}` },
-          { label: content.blogNav, href: `/blog?lang=${lang}`, isActive: true },
+          { label: tProjects("backBtn"), href: "/" },
+          { label: tBlog("nav"), href: "/blog", isActive: true },
         ]}
       />
 
       <header className="border-b-[6px] border-ink bg-comic-teal bg-halftone-red px-6 py-16 text-center max-[760px]:px-4 max-[760px]:py-12">
         <p className="m-0 mb-3 inline-block -rotate-[3deg] rounded-[10px] border-[3px] border-ink bg-comic-yellow px-3.5 py-1.5 font-stamp text-2xl text-comic-red shadow-[3px_3px_0_#1a1a2e]">
-          {content.blogBang}
+          {tBlog("bang")}
         </p>
         <h1 className="m-0 mb-2.5 font-display text-[clamp(42px,8vw,72px)] tracking-[3px] text-comic-yellow text-stroke-ink-lg [text-shadow:5px_5px_0_#1a1a2e]">
-          {content.blogTitle}
+          {tBlog("title")}
         </h1>
         <p className="mx-auto m-0 max-w-[480px] text-lg font-bold text-white [text-shadow:2px_2px_0_#1a1a2e]">
-          {content.blogSub}
+          {tBlog("sub")}
         </p>
       </header>
 
@@ -44,12 +44,12 @@ export function BlogIndex({ defaultLang = "tr" }: BlogIndexProps) {
           {posts.map((post) => (
             <Link
               key={post.slug}
-              href={`/blog/${post.slug}?lang=${lang}`}
+              href={`/blog/${post.slug}`}
               className="relative flex min-h-[340px] flex-col overflow-hidden rounded-lg border-[5px] border-ink p-[18px] text-white no-underline shadow-[8px_8px_0_#1a1a2e] transition-[transform,box-shadow] duration-[120ms] hover:-translate-x-[3px] hover:-translate-y-[3px] hover:-rotate-1 hover:text-white hover:shadow-[12px_12px_0_#1a1a2e] max-[760px]:min-h-[300px]"
               style={{ background: post.coverBg }}
             >
               <span className="self-start rounded-md bg-ink px-2.5 py-0.5 font-display text-sm tracking-wide text-comic-yellow">
-                {content.issueLabel} #{post.issue}
+                {tProjects("issueLabel")} #{post.issue}
               </span>
               <span className="my-[18px] mb-2 text-center text-[64px] drop-shadow-[3px_3px_0_#1a1a2e]">
                 {post.emoji}
@@ -79,7 +79,7 @@ export function BlogIndex({ defaultLang = "tr" }: BlogIndexProps) {
       </section>
 
       <footer className="bg-ink px-5 py-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
-        {content.footerText}
+        {tCommon("footerText")}
       </footer>
     </div>
   );

@@ -1,0 +1,221 @@
+{
+  "common": {
+    "langButton": "EN",
+    "footerText": "© 2026 EMRE Seyfullah Ateş",
+    "loaderText": "YÜKLENİYOR...",
+    "soundOnLabel": "SES AÇIK",
+    "soundOffLabel": "SESSİZ",
+    "avatarHi": "Merhaba!",
+    "flipLabel": "FLIP!",
+    "emptyFilter": "Bu kategoride proje yok."
+  },
+  "hero": {
+    "bubble": "Merhaba! Ben Emre 👋",
+    "role": "FRONTEND DEVELOPER",
+    "text": "Piksel piksel arayüz döven, kod bloklarından süper güçler çıkaran bir geliştirici. Web'i daha eğlenceli bir yer yapmak için buradayım!",
+    "cta": "İŞLERİME BAK"
+  },
+  "nav": {
+    "items": [
+      { "label": "HAKKIMDA", "href": "#hakkimda" },
+      { "label": "PROJELER", "href": "#projeler" },
+      { "label": "YETENEKLER", "href": "#yetenekler" },
+      { "label": "DENEYİM", "href": "#deneyim" },
+      { "label": "OYUN", "href": "#oyun" },
+      { "label": "BLOG", "href": "/blog" },
+      { "label": "İLETİŞİM", "href": "#iletisim" }
+    ],
+    "marqueeWords": [
+      "REACT",
+      "Next.js",
+      "TYPESCRIPT",
+      "CSS SİHİRBAZI",
+      "POW!",
+      "UI/UX",
+      "ANİMASYON",
+      "BAM!",
+      "PERFORMANS",
+      "WebSocket",
+      "GitHub",
+      "HTML",
+      "JS",
+      "Kapow!",
+      "CSS",
+      "Node.js",
+      "Tailwind CSS"
+    ]
+  },
+  "about": {
+    "title": "HAKKIMDA",
+    "panels": [
+      {
+        "icon": "⚡",
+        "title": "SÜPER GÜÇ",
+        "text": "Karmaşık tasarımları piksel-mükemmel, akıcı arayüzlere dönüştürmek. CSS benim örümcek hissim.",
+        "bg": "#FFD23F",
+        "rot": -1.5
+      },
+      {
+        "icon": "🎯",
+        "title": "GÖREV",
+        "text": "Kullanıcıların \"vay be!\" dediği, hızlı ve erişilebilir web deneyimleri inşa etmek.",
+        "bg": "#4CB5AE",
+        "rot": 1
+      },
+      {
+        "icon": "🕹️",
+        "title": "GİZLİ KİMLİK",
+        "text": "Gündüz geliştirici, gece retro oyun koleksiyoncusu ve çizgi roman kurdu.",
+        "bg": "#FF9F5A",
+        "rot": -0.5
+      }
+    ]
+  },
+  "projects": {
+    "title": "PROJELER!",
+    "sub": "Bir panele tıkla, hikayenin devamını gör! 💥",
+    "demoBtn": "DEMO",
+    "githubBtn": "GITHUB",
+    "caseStudyBtn": "HİKAYEYİ OKU",
+    "backBtn": "← ANA SAYFA",
+    "stripTitle": "HİKAYE ŞERİDİ",
+    "issueLabel": "SAYI",
+    "prevIssue": "← ÖNCEKİ SAYI",
+    "nextIssue": "SONRAKİ SAYI →",
+    "sequelCta": "Devamını yaşamak ister misin?",
+    "filters": {
+      "all": "HEPSİ",
+      "action": "ACTION",
+      "tech": "TECH",
+      "fun": "FUN"
+    },
+    "items": [
+      {
+        "title": "HIZLI MARKET",
+        "emoji": "🛒",
+        "bg": "#D62828",
+        "blurb": "Anlık stok takipli e-ticaret arayüzü.",
+        "detail": "React + TypeScript ile kurulan, 60fps mikro animasyonlara sahip e-ticaret deneyimi. Sepet akışı yeniden tasarlandıktan sonra dönüşüm %23 arttı. KAPOW!",
+        "tags": ["React", "TypeScript", "Zustand"]
+      },
+      {
+        "title": "PANELİX",
+        "emoji": "📊",
+        "bg": "#4CB5AE",
+        "blurb": "Gerçek zamanlı veri panosu.",
+        "detail": "WebSocket ile canlı akan veriler, sürükle-bırak widget sistemi ve karanlık mod. 10.000+ satırlık tabloları ter dökmeden render eder. ZOOM!",
+        "tags": ["Next.js", "WebSocket", "D3"]
+      },
+      {
+        "title": "KOMİK-UI",
+        "emoji": "🎨",
+        "bg": "#FF9F5A",
+        "blurb": "Açık kaynak komponent kütüphanesi.",
+        "detail": "40+ erişilebilir komponent, tema desteği ve tam klavye navigasyonu. GitHub'da 2k yıldız topladı. WHAM!",
+        "tags": ["React", "Storybook", "a11y"]
+      },
+      {
+        "title": "ROTACI",
+        "emoji": "🗺️",
+        "bg": "#7B4CB5",
+        "blurb": "Seyahat planlama uygulaması.",
+        "detail": "Harita üzerinde sürükle-bırak rota kurgusu, çevrimdışı destek ve PWA kurulumu. App-store hissi veren web deneyimi. VROOM!",
+        "tags": ["PWA", "Mapbox", "Vite"]
+      },
+      {
+        "title": "SES DALGASI",
+        "emoji": "🎧",
+        "bg": "#1A6FB5",
+        "blurb": "Podcast oynatıcı arayüzü.",
+        "detail": "Web Audio API ile dalga formu görselleştirme, bölüm notları senkronizasyonu ve hız kontrolü. Kulaklara ve gözlere bayram. BOOM!",
+        "tags": ["Web Audio", "Svelte", "CSS"]
+      },
+      {
+        "title": "PİKSEL DÖVÜŞÜ",
+        "emoji": "👾",
+        "bg": "#B53A5E",
+        "blurb": "Tarayıcıda retro mini oyun.",
+        "detail": "Canvas tabanlı, 60fps platform oyunu. Skor tablosu, gamepad desteği ve 8-bit ses efektleri. Saf eğlence projesi. ZAP!",
+        "tags": ["Canvas", "JS", "Aseprite"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "YETENEKLER",
+    "items": [
+      { "name": "REACT / NEXT.JS", "level": "EFSANE", "pct": "95%" },
+      { "name": "TYPESCRIPT", "level": "USTA", "pct": "90%" },
+      { "name": "CSS / ANİMASYON", "level": "EFSANE", "pct": "95%" },
+      { "name": "NODE.JS", "level": "İYİ", "pct": "75%" },
+      { "name": "ERİŞİLEBİLİRLİK", "level": "USTA", "pct": "85%" },
+      { "name": "TEST (VITEST/PW)", "level": "İYİ", "pct": "78%" }
+    ]
+  },
+  "timeline": {
+    "title": "MACERA GÜNLÜĞÜ",
+    "items": [
+      {
+        "year": "2024 — BUGÜN",
+        "title": "KIDEMLİ FRONTEND DEV — TECHCO",
+        "text": "Tasarım sistemi liderliği, 8 kişilik ekiple ürün arayüzünün yeniden yazımı.",
+        "dotBg": "#D62828",
+        "rot": -0.6
+      },
+      {
+        "year": "2021 — 2024",
+        "title": "FRONTEND DEVELOPER — STARTUPX",
+        "text": "MVP'den 1M kullanıcıya: performans optimizasyonu ve komponent mimarisi.",
+        "dotBg": "#FFD23F",
+        "rot": 0.6
+      },
+      {
+        "year": "2019 — 2021",
+        "title": "JR. DEVELOPER — AJANS",
+        "text": "Onlarca kampanya sitesi, ilk büyük animasyon projeleri ve bolca kahve.",
+        "dotBg": "#4CB5AE",
+        "rot": -0.4
+      },
+      {
+        "year": "2019",
+        "title": "ORİJİN HİKAYESİ",
+        "text": "Bilgisayar Mühendisliği mezuniyeti. Radyoaktif bir klavye tarafından ısırıldım.",
+        "dotBg": "#FF9F5A",
+        "rot": 0.5
+      }
+    ]
+  },
+  "contact": {
+    "bang": "BAM!",
+    "title": "BİRLİKTE ÇALIŞALIM",
+    "text": "Bir proje mi var? Süper kahraman takviyesi mi lazım? Sinyal gönder, hemen geliyorum!",
+    "form": {
+      "name": "İSİM",
+      "email": "E-POSTA",
+      "message": "MESAJ",
+      "send": "SİNYAL GÖNDER",
+      "sending": "GÖNDERİLİYOR...",
+      "success": "POW! Mesajın ulaştı. Hemen dönüyorum!",
+      "error": "ZAP! Bir şey ters gitti. Tekrar dene.",
+      "namePh": "Adın / süper kahraman adın",
+      "emailPh": "ornek@mail.com",
+      "messagePh": "Projeden, işbirliğinden veya bir BAM! fikrinden bahset..."
+    }
+  },
+  "game": {
+    "title": "BUG SQUASHER!",
+    "sub": "10 saniyede mümkün olduğunca çok bug ez! Yüksek skor kaydedilir. 💥",
+    "start": "BAŞLA →",
+    "again": "TEKRAR!",
+    "score": "SKOR",
+    "high": "REKOR",
+    "time": "SÜRE",
+    "result": "OYUN BİTTİ!"
+  },
+  "blog": {
+    "title": "BLOG SAYILARI",
+    "sub": "Her yazı bir kapak, her kapak bir macera.",
+    "bang": "NEW ISSUE!",
+    "back": "← TÜM SAYILAR",
+    "nav": "BLOG"
+  }
+}

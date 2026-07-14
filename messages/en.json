@@ -1,0 +1,212 @@
+{
+  "common": {
+    "langButton": "TR",
+    "footerText": "© 2026 EMRE — THIS PAGE IS MADE OF 100% HAND-DRAWN CODE ✦",
+    "loaderText": "LOADING...",
+    "soundOnLabel": "SFX ON",
+    "soundOffLabel": "MUTED",
+    "avatarHi": "Hi!",
+    "flipLabel": "HOP!",
+    "emptyFilter": "No projects in this category."
+  },
+  "hero": {
+    "bubble": "Hi! I'm Emre 👋",
+    "role": "FRONTEND DEVELOPER",
+    "text": "A developer forging interfaces pixel by pixel, pulling superpowers out of code blocks. Here to make the web a more fun place!",
+    "cta": "SEE MY WORK"
+  },
+  "nav": {
+    "items": [
+      { "label": "ABOUT", "href": "#hakkimda" },
+      { "label": "PROJECTS", "href": "#projeler" },
+      { "label": "SKILLS", "href": "#yetenekler" },
+      { "label": "EXPERIENCE", "href": "#deneyim" },
+      { "label": "GAME", "href": "#oyun" },
+      { "label": "BLOG", "href": "/blog" },
+      { "label": "CONTACT", "href": "#iletisim" }
+    ],
+    "marqueeWords": [
+      "REACT",
+      "TYPESCRIPT",
+      "CSS WIZARD",
+      "POW!",
+      "UI/UX",
+      "ANIMATION",
+      "BAM!",
+      "PERFORMANCE"
+    ]
+  },
+  "about": {
+    "title": "ABOUT ME",
+    "panels": [
+      {
+        "icon": "⚡",
+        "title": "SUPERPOWER",
+        "text": "Turning complex designs into pixel-perfect, buttery-smooth interfaces. CSS is my spider-sense.",
+        "bg": "#FFD23F",
+        "rot": -1.5
+      },
+      {
+        "icon": "🎯",
+        "title": "MISSION",
+        "text": "Building fast, accessible web experiences that make users go \"whoa!\"",
+        "bg": "#4CB5AE",
+        "rot": 1
+      },
+      {
+        "icon": "🕹️",
+        "title": "SECRET IDENTITY",
+        "text": "Developer by day, retro game collector and comic book nerd by night.",
+        "bg": "#FF9F5A",
+        "rot": -0.5
+      }
+    ]
+  },
+  "projects": {
+    "title": "PROJECTS!",
+    "sub": "Click a panel to see the rest of the story! 💥",
+    "demoBtn": "DEMO",
+    "githubBtn": "GITHUB",
+    "caseStudyBtn": "READ THE STORY",
+    "backBtn": "← HOME",
+    "stripTitle": "STORY STRIP",
+    "issueLabel": "ISSUE",
+    "prevIssue": "← PREV ISSUE",
+    "nextIssue": "NEXT ISSUE →",
+    "sequelCta": "Want to live the sequel?",
+    "filters": {
+      "all": "ALL",
+      "action": "ACTION",
+      "tech": "TECH",
+      "fun": "FUN"
+    },
+    "items": [
+      {
+        "title": "SPEEDY MARKET",
+        "emoji": "🛒",
+        "bg": "#D62828",
+        "blurb": "E-commerce UI with live stock tracking.",
+        "detail": "An e-commerce experience built with React + TypeScript, packed with 60fps micro-animations. Conversion rose 23% after the cart flow redesign. KAPOW!",
+        "tags": ["React", "TypeScript", "Zustand"]
+      },
+      {
+        "title": "PANELIX",
+        "emoji": "📊",
+        "bg": "#4CB5AE",
+        "blurb": "Real-time data dashboard.",
+        "detail": "Live-streaming data over WebSocket, drag-and-drop widgets and dark mode. Renders 10,000+ row tables without breaking a sweat. ZOOM!",
+        "tags": ["Next.js", "WebSocket", "D3"]
+      },
+      {
+        "title": "COMIC-UI",
+        "emoji": "🎨",
+        "bg": "#FF9F5A",
+        "blurb": "Open-source component library.",
+        "detail": "40+ accessible components, theming support and full keyboard navigation. Earned 2k stars on GitHub. WHAM!",
+        "tags": ["React", "Storybook", "a11y"]
+      },
+      {
+        "title": "WAYFINDER",
+        "emoji": "🗺️",
+        "bg": "#7B4CB5",
+        "blurb": "Travel planning app.",
+        "detail": "Drag-and-drop route building on a map, offline support and PWA install. A web experience that feels app-store native. VROOM!",
+        "tags": ["PWA", "Mapbox", "Vite"]
+      },
+      {
+        "title": "SOUNDWAVE",
+        "emoji": "🎧",
+        "bg": "#1A6FB5",
+        "blurb": "Podcast player interface.",
+        "detail": "Waveform visualization with Web Audio API, chapter note sync and speed control. A feast for ears and eyes. BOOM!",
+        "tags": ["Web Audio", "Svelte", "CSS"]
+      },
+      {
+        "title": "PIXEL BRAWL",
+        "emoji": "👾",
+        "bg": "#B53A5E",
+        "blurb": "Retro mini game in the browser.",
+        "detail": "Canvas-based 60fps platformer. Leaderboard, gamepad support and 8-bit sound effects. A pure fun project. ZAP!",
+        "tags": ["Canvas", "JS", "Aseprite"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "SKILLS",
+    "items": [
+      { "name": "REACT / NEXT.JS", "level": "LEGENDARY", "pct": "95%" },
+      { "name": "TYPESCRIPT", "level": "MASTER", "pct": "90%" },
+      { "name": "CSS / ANIMATION", "level": "LEGENDARY", "pct": "95%" },
+      { "name": "NODE.JS", "level": "SOLID", "pct": "75%" },
+      { "name": "ACCESSIBILITY", "level": "MASTER", "pct": "85%" },
+      { "name": "TESTING (VITEST/PW)", "level": "SOLID", "pct": "78%" }
+    ]
+  },
+  "timeline": {
+    "title": "ADVENTURE LOG",
+    "items": [
+      {
+        "year": "2024 — NOW",
+        "title": "SENIOR FRONTEND DEV — TECHCO",
+        "text": "Leading the design system, rebuilding the product UI with a team of 8.",
+        "dotBg": "#D62828",
+        "rot": -0.6
+      },
+      {
+        "year": "2021 — 2024",
+        "title": "FRONTEND DEVELOPER — STARTUPX",
+        "text": "From MVP to 1M users: performance work and component architecture.",
+        "dotBg": "#FFD23F",
+        "rot": 0.6
+      },
+      {
+        "year": "2019 — 2021",
+        "title": "JR. DEVELOPER — AGENCY",
+        "text": "Dozens of campaign sites, first big animation projects and lots of coffee.",
+        "dotBg": "#4CB5AE",
+        "rot": -0.4
+      },
+      {
+        "year": "2019",
+        "title": "ORIGIN STORY",
+        "text": "Computer Engineering graduation. Bitten by a radioactive keyboard.",
+        "dotBg": "#FF9F5A",
+        "rot": 0.5
+      }
+    ]
+  },
+  "contact": {
+    "bang": "BAM!",
+    "title": "LET'S WORK TOGETHER",
+    "text": "Got a project? Need superhero reinforcements? Send the signal, I'll be right there!",
+    "form": {
+      "name": "NAME",
+      "email": "EMAIL",
+      "message": "MESSAGE",
+      "send": "SEND SIGNAL",
+      "sending": "SENDING...",
+      "success": "POW! Message received. I'll be right back!",
+      "error": "ZAP! Something went wrong. Try again.",
+      "namePh": "Your name / hero alias",
+      "emailPh": "you@mail.com",
+      "messagePh": "Tell me about a project, collab, or a BAM! idea..."
+    }
+  },
+  "game": {
+    "title": "BUG SQUASHER!",
+    "sub": "Squash as many bugs as you can in 10 seconds! High score is saved. 💥",
+    "start": "START →",
+    "again": "AGAIN!",
+    "score": "SCORE",
+    "high": "BEST",
+    "time": "TIME",
+    "result": "GAME OVER!"
+  },
+  "blog": {
+    "title": "BLOG ISSUES",
+    "sub": "Every post is a cover. Every cover is an adventure.",
+    "bang": "NEW ISSUE!",
+    "back": "← ALL ISSUES",
+    "nav": "BLOG"
+  }
+}
