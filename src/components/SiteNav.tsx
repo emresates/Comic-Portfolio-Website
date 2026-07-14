@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
+import { siteConfig } from "@/config/site";
 
 export type SiteNavItem = {
   label: string;
@@ -114,7 +115,7 @@ export function SiteNav({
         href={brandHref}
         className="order-1 shrink-0 font-display text-[26px] max-[420px]:text-[22px] tracking-[2px] bg-comic-red text-white! px-3 py-1 max-[420px]:px-2.5 border-[3px] border-ink rounded-lg -rotate-2 shadow-[3px_3px_0_#1a1a2e] no-underline hover:text-white!"
       >
-        EMRE!
+        {siteConfig.brand}!
       </Link>
 
       {items.length > 0 && (

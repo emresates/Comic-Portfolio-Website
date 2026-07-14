@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "EMRE — Frontend Developer",
-  description:
-    "Piksel piksel arayüz döven, kod bloklarından süper güçler çıkaran bir frontend developer portföyü.",
+  metadataBase: new URL(siteConfig.seo.url),
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
+  openGraph: {
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    url: siteConfig.seo.url,
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {

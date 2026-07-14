@@ -7,6 +7,7 @@ import { SiteNav } from "./SiteNav";
 import { getProjects, type Project } from "@/lib/content";
 import { getCaseStudy, PROJECT_SLUGS } from "@/lib/projects";
 import type { Locale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
 import { useToggleLocale } from "@/hooks/useToggleLocale";
 
 type ProjectCaseStudyProps = {
@@ -191,7 +192,10 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
       </section>
 
       <footer className="bg-ink py-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
-        {tCommon("footerText")}
+        {tCommon("footerText", {
+          year: siteConfig.copyrightYear,
+          brand: siteConfig.authorName,
+        })}
       </footer>
     </div>
   );

@@ -2,6 +2,7 @@ import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { BlogIndex } from "@/components/BlogIndex";
+import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -9,8 +10,8 @@ type Props = {
 };
 
 export const metadata = {
-  title: "Blog Issues — EMRE",
-  description: "Comic-cover blog issues from Emre's frontend adventures.",
+  title: `Blog — ${siteConfig.brand}`,
+  description: siteConfig.seo.description,
 };
 
 export function generateStaticParams() {

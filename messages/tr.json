@@ -1,7 +1,7 @@
 {
   "common": {
     "langButton": "EN",
-    "footerText": "© 2026 EMRE Seyfullah Ateş",
+    "footerText": "© {year} {brand} — Tüm hakları saklıdır.",
     "loaderText": "YÜKLENİYOR...",
     "soundOnLabel": "SES AÇIK",
     "soundOffLabel": "SESSİZ",
@@ -10,8 +10,7 @@
     "emptyFilter": "Bu kategoride proje yok."
   },
   "hero": {
-    "bubble": "Merhaba! Ben Emre 👋",
-    "role": "FRONTEND DEVELOPER",
+    "bubble": "Merhaba! Ben {name} 👋",
     "text": "Piksel piksel arayüz döven, kod bloklarından süper güçler çıkaran bir geliştirici. Web'i daha eğlenceli bir yer yapmak için buradayım!",
     "cta": "İŞLERİME BAK"
   },
@@ -188,6 +187,7 @@
     "bang": "BAM!",
     "title": "BİRLİKTE ÇALIŞALIM",
     "text": "Bir proje mi var? Süper kahraman takviyesi mi lazım? Sinyal gönder, hemen geliyorum!",
+    "emailBtn": "E-POSTA",
     "form": {
       "name": "İSİM",
       "email": "E-POSTA",

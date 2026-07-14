@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { ContactForm } from "../ContactForm";
+import { siteConfig } from "@/config/site";
 import { contactBtnBase } from "./shared";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa6";
 
@@ -37,26 +38,34 @@ export function ContactSection() {
         />
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <a
-            href="mailto:emre@example.com"
+            href={`mailto:${siteConfig.email}`}
             className={`${contactBtnBase} bg-white text-comic-red hover:bg-comic-cream-hot hover:text-comic-red-dark`}
           >
             <FaEnvelope />
-            <span>E-POSTA</span>
+            <span>{tContact("emailBtn")}</span>
           </a>
-          <a
-            href="#"
-            className={`${contactBtnBase} bg-ink text-comic-yellow hover:bg-comic-red-dark hover:text-white`}
-          >
-            <FaGithub />
-            <span>GITHUB</span>
-          </a>
-          <a
-            href="#"
-            className={`${contactBtnBase} bg-comic-teal text-white hover:bg-comic-orange hover:text-ink`}
-          >
-            <FaLinkedin />
-            <span>LINKEDIN</span>
-          </a>
+          {siteConfig.social.github && (
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${contactBtnBase} bg-ink text-comic-yellow hover:bg-comic-red-dark hover:text-white`}
+            >
+              <FaGithub />
+              <span>GITHUB</span>
+            </a>
+          )}
+          {siteConfig.social.linkedin && (
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${contactBtnBase} bg-comic-teal text-white hover:bg-comic-orange hover:text-ink`}
+            >
+              <FaLinkedin />
+              <span>LINKEDIN</span>
+            </a>
+          )}
         </div>
       </div>
     </section>

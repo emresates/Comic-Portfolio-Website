@@ -1,7 +1,7 @@
 {
   "common": {
     "langButton": "TR",
-    "footerText": "© 2026 EMRE — THIS PAGE IS MADE OF 100% HAND-DRAWN CODE ✦",
+    "footerText": "© {year} {brand} — All rights reserved.",
     "loaderText": "LOADING...",
     "soundOnLabel": "SFX ON",
     "soundOffLabel": "MUTED",
@@ -10,8 +10,7 @@
     "emptyFilter": "No projects in this category."
   },
   "hero": {
-    "bubble": "Hi! I'm Emre 👋",
-    "role": "FRONTEND DEVELOPER",
+    "bubble": "Hi! I'm {name} 👋",
     "text": "A developer forging interfaces pixel by pixel, pulling superpowers out of code blocks. Here to make the web a more fun place!",
     "cta": "SEE MY WORK"
   },
@@ -179,6 +178,7 @@
     "bang": "BAM!",
     "title": "LET'S WORK TOGETHER",
     "text": "Got a project? Need superhero reinforcements? Send the signal, I'll be right there!",
+    "emailBtn": "EMAIL",
     "form": {
       "name": "NAME",
       "email": "EMAIL",

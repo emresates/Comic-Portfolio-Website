@@ -11,6 +11,7 @@ import { ProjectsSection } from "./sections/ProjectsSection";
 import { SkillsSection } from "./sections/SkillsSection";
 import { ExperienceSection } from "./sections/ExperienceSection";
 import { ContactSection } from "./sections/ContactSection";
+import { siteConfig } from "@/config/site";
 import { useToggleLocale } from "@/hooks/useToggleLocale";
 import { PORTFOLIO_SECTION_IDS, useScrollSpy } from "@/hooks/useScrollSpy";
 import { useSfx } from "@/hooks/useSfx";
@@ -166,7 +167,10 @@ export function ComicPortfolio() {
         <ContactSection />
 
         <footer className="bg-ink p-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
-          {tCommon("footerText")}
+          {tCommon("footerText", {
+            year: siteConfig.copyrightYear,
+            brand: siteConfig.authorName,
+          })}
         </footer>
       </div>
     </div>

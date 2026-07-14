@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import type { Locale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
 import { useToggleLocale } from "@/hooks/useToggleLocale";
 import { SiteNav } from "./SiteNav";
 
@@ -84,7 +85,10 @@ export function BlogPostView({ post }: BlogPostViewProps) {
       </article>
 
       <footer className="bg-ink px-5 py-5 text-center font-display text-lg tracking-[2px] text-comic-yellow">
-        {tCommon("footerText")}
+        {tCommon("footerText", {
+          year: siteConfig.copyrightYear,
+          brand: siteConfig.authorName,
+        })}
       </footer>
     </div>
   );

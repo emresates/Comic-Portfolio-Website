@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ProjectCaseStudy } from "@/components/ProjectCaseStudy";
 import { routing, type Locale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
 import { getProjectBySlug } from "@/lib/content";
 import { PROJECT_SLUGS } from "@/lib/projects";
 
@@ -22,14 +23,14 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) {
-    return { title: "Proje bulunamadı — EMRE" };
+    return { title: `Not found — ${siteConfig.brand}` };
   }
   const project = getProjectBySlug(slug, locale as Locale);
   if (!project) {
-    return { title: "Proje bulunamadı — EMRE" };
+    return { title: `Not found — ${siteConfig.brand}` };
   }
   return {
-    title: `${project.title} — Case Study | EMRE`,
+    title: `${project.title} — Case Study | ${siteConfig.brand}`,
     description: project.detail,
   };
 }

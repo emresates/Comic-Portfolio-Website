@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { BlogPostView } from "@/components/BlogPostView";
 import { routing, type Locale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
 import { getBlogPost, getBlogPosts } from "@/lib/blog";
 
 type PageProps = {
@@ -21,12 +22,12 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) {
-    return { title: "Issue not found — EMRE" };
+    return { title: `Issue not found — ${siteConfig.brand}` };
   }
   const post = getBlogPost(slug, locale);
-  if (!post) return { title: "Issue not found — EMRE" };
+  if (!post) return { title: `Issue not found — ${siteConfig.brand}` };
   return {
-    title: `${post.title} — Issue #${post.issue} | EMRE`,
+    title: `${post.title} — Issue #${post.issue} | ${siteConfig.brand}`,
     description: post.blurb,
   };
 }

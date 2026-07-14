@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { CharacterAvatar } from "../CharacterAvatar";
+import { siteConfig } from "@/config/site";
 
 export function HeroSection() {
   const tCommon = useTranslations("common");
@@ -16,7 +17,7 @@ export function HeroSection() {
         <CharacterAvatar hiText={tCommon("avatarHi")} />
         <div className="max-w-[560px] text-center">
           <div className="relative mb-[18px] inline-block rounded-2xl border-4 border-ink bg-white px-[22px] py-2.5 text-lg font-bold shadow-[5px_5px_0_#1a1a2e]">
-            {tHero("bubble")}
+            {tHero("bubble", { name: siteConfig.brand })}
             <div
               className="absolute -bottom-4 left-10 size-0 border-t-16 border-r-1 border-l-[14px] border-t-ink border-r-transparent border-l-transparent"
               aria-hidden
@@ -27,10 +28,10 @@ export function HeroSection() {
             />
           </div>
           <h1 className="m-0 font-display text-[clamp(52px,9vw,104px)] leading-[0.95] tracking-[3px] text-comic-yellow text-stroke-ink-lg [text-shadow:6px_6px_0_#d62828,8px_8px_0_#1a1a2e]">
-            EMRE
+            {siteConfig.brand}
           </h1>
           <h2 className="mt-3.5 inline-block -rotate-[1.5deg] rounded-md bg-ink px-5 py-1.5 font-stamp text-[clamp(22px,4vw,36px)] text-white">
-            {tHero("role")}
+            {siteConfig.role}
           </h2>
           <p className="mx-auto mb-7 mt-[22px] max-w-[440px] text-lg font-bold">
             {tHero("text")}
