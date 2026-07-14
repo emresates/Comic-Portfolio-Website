@@ -108,6 +108,18 @@ src/
 messages/               # tr.json / en.json translations
 ```
 
+## Documentation
+
+Detailed guides live in the [`documentation/`](./documentation) folder:
+
+- [Installation](./documentation/installation.md)
+- [Customization](./documentation/customization.md)
+- [Projects & Case Studies](./documentation/projects.md)
+- [Blog](./documentation/blog.md)
+- [Contact Form](./documentation/contact-form.md)
+- [Deployment](./documentation/deployment.md)
+- [FAQ](./documentation/faq.md)
+
 ## License
 
 Released under the MIT License — see [LICENSE](./LICENSE).

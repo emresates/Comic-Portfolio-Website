@@ -29,7 +29,7 @@ const postsTr: BlogPost[] = [
     ],
   },
   {
-    slug: "erişilebilir-kahramanlar",
+    slug: "erisilebilir-kahramanlar",
     issue: 11,
     date: "2026-02-12",
     coverBg: "#4CB5AE",
@@ -116,7 +116,7 @@ const postsEn: BlogPost[] = [
 /** TR/EN slug pairs share the same issue number for cross-lang links. */
 const SLUG_PAIRS: [string, string][] = [
   ["css-orumbercek-hissi", "css-spider-sense"],
-  ["erişilebilir-kahramanlar", "accessible-heroes"],
+  ["erisilebilir-kahramanlar", "accessible-heroes"],
   ["performans-zaman-makinesi", "performance-time-machine"],
 ];
 
